@@ -17814,10 +17814,10 @@ const db = app.service('/mongo');
 const Experiment_type = $("#objectVersion").length ? 'object' : 'action';
 
 //
-const MAX_TRIALS = 14;
+const MAX_TRIALS = 13;
 const throttleTime = 0.1; //in seconds
-var waitSeconds = 5; //instruction waiting time (in seconds)
-const debugMode = 1;
+var waitSeconds = 120; //instruction waiting time (in seconds)
+const debugMode = 0;
 //
 const div_width = 800;
 const div_height = 570;

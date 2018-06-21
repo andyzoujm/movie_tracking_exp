@@ -26,7 +26,8 @@
     "eslint": "eslint src/. test/. --config .eslintrc.json",
     "start": "node src/",
     "mocha": "mocha test/ --recursive",
-    "build": "webpack --watch"
+    "build": "webpack --watch",
+    "deploy": "webpack && node src/"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
