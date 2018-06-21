@@ -65,7 +65,7 @@ $(document).ready(function() {
   setupGridDimentional();
   getPlaylist(playlistId, {
     query: {
-      maxResults: MAX_TRIALS,
+      maxResults: MAX_TRIALS-1,
     }
   }).then(message => {
     user.trialVideos.push({videoId:practiceId, title:'0_context'});
@@ -105,7 +105,6 @@ function submitTrial(){
   // console.warn(user);
   updateEntry(user);
   trialEntries = [];
-  $('#submitTrial').hide();
   $('#surveyForm')[0].reset();
   if (user.currentTrial === MAX_TRIALS) {
     showPage(6);
