@@ -1,5 +1,5 @@
 {
-  "host": "berkeley-emotion-tracking.herokuapp.com",
+  "host": "emotion-tracking.herokuapp.com",
   "port": "PORT",
   "mongodb": "MONGODB_URI",
   "apiKey": "API_KEY"
