@@ -1,5 +1,5 @@
 {
-  "host": "berkeley-video-annotation.herokuapp.com",
+  "host": "berkeley-emotion-tracking.herokuapp.com",
   "port": "PORT",
   "mongodb": "MONGODB_URI",
   "apiKey": "API_KEY"
