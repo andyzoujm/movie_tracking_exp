@@ -12,7 +12,7 @@ const playlist = app.service('/playlist');
 const db = app.service('/mongo');
 
 // 0 is scene rating project; 1 is emotion category project
-const Project_version = 'scene';  // ‘scene or category’
+const Project_version = 'category';  // ‘scene or category’
 
 const personOrContext = Math.round(Math.random()*2); // randome number of 0 or 1 or 2
 // const personOrContext = 0;
