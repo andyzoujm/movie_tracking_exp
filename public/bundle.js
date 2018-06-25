@@ -18115,6 +18115,13 @@ player.on('ended',function(){
   showPage(5);
   $('#longestTimeStill').html(Math.round(longestTimeStill));
   randFeedback = Math.floor((Math.random() * 5) + 1);
+  $('#encourage1').hide();
+  $('#encourage2').hide();
+  $('#encourage3').hide();
+  $('#encourage4').hide();
+  $('#encourage5').hide();
+  $('#badJob1').hide();
+  $('#badJob2').hide();
   if ((longestTimeStill)>TimeStillLimit){
     $('#badJob1').show();
     $('#badJob2').show();
