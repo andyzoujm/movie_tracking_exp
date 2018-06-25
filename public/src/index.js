@@ -12,7 +12,7 @@ const playlist = app.service('/playlist');
 const db = app.service('/mongo');
 
 // 0 is scene rating project; 1 is emotion category project
-const Project_version = 'category';  // ‘scene or category’
+const Project_version = 'scene';  // ‘scene or category’
 
 const personOrContext = Math.round(Math.random()*2); // randome number of 0 or 1 or 2
 // const personOrContext = 0;
@@ -23,14 +23,14 @@ const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 
 
 // about experiment version
 const sceneOrPerson = Math.round(Math.random()); // randome number of 0 or 1
-// const sceneOrPerson = 1;
+// const sceneOrPerson = 0;
 const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
 //1: scene
 //0: person
 
 const valence_direction = Math.round(Math.random()); 
 // const valence_direction = 1; //positive on the left and negative on the right
-// const valence_direction = 0; //positive on the right and negative on the left
+// const valence_direction = 1; //positive on the right and negative on the left
 
 
 
@@ -202,7 +202,15 @@ function beginTrial() {
   }
   var videoNum = videoName.match(/\d+/);
   // var videoNum = $(this).attr('id').split('_').pop();
-  $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png');
+  if (user.projectVersion === 'scene'){
+    $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png');
+  }else{
+    if (user.conditionType == 'contextOnly'){
+      $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png'); 
+    }else{
+      $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_baseline.png'); 
+    }
+  }
   trialStart = Date.now(); //get start time of the trial
   showPage(4);
   if (user.projectVersion === 'scene'){
