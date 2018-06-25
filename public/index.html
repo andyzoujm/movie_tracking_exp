@@ -42,7 +42,7 @@
         left:0;
       }
       #imageTrack{
-        width: 50%;
+        height: 200px;
         /*height:70%;*/
         margin-top: 5px;
         margin-left: 5px;
@@ -66,6 +66,7 @@
       }*/
       h3{
         margin-top:5px;
+        margin-left:5px;
       }
       p{
         margin-bottom: 0px;
@@ -78,14 +79,18 @@
       <!-- Consent form page-->
       <div id="consent" class="page container">
         <div class='row bottom-buffer col-md-3'>
-          <h3><u>Consent Form</u></h3>
+          <br/>
+          <p class="spaceText"> <b>GOOGLE CHROME IS REQUIRED.</b> The experiment may not work with other browsers.</p>
+          <br>
+          <p class="spaceText"> <b>IMPORTANT</b>: Please drag the corners of your browser to fill the whole screen. This text has to be on the <b>LEFT</b> relative to the consent form (not on top). Please keep the maximized browser window throughout the whole experiment. </p>
+          <br>
           <input name="consent" onclick="Entrypoint.disableStart(false)" type="radio" value="yes" /> I agree<br />
           <input name="consent" onclick="Entrypoint.disableStart(true)" type="radio" value="no" /> I don&#39;t agree<br />
           <p class="spaceText"> Click 'I agree' then click 'Start' to begin. </p>
           <button disabled type="button" id="agreeAndStart" onclick="Entrypoint.showPage(1)" class="btn btn-lg btn-primary">Start</button>
         </div>
         <div class='row bottom-buffer col-md-9'>
-          <p> These text has be to be visible. Don't scroll down the browser. Make it larger to fill the screen if necessary.</p>
+          <center><h3><u><b>Consent Form</b></u></h3></center>
           <iframe frameborder="1" id="consentForm" src="https://docs.google.com/document/d/1JXYorhDq0hhs4Z3Up8RtdBycP3XihQxEt180mNid978/pub?embedded=true"></iframe>
         </div>
       </div>
@@ -93,17 +98,16 @@
       <div id="before_start" class="page container">
           <!-- Starting page -->
           <h3><u>Before You Start</u></h3>
-          <p class="spaceText"> Welcome! I am a graduate student in Prof. David Whitney's laboratory. The purpose of this experiment is to study how we perceive other people's emotion in a naturalistic setting. During this experiment, You will be asked to watch video clips and track the emotion of a chosen person in the presented video. Please try your best to infer and track his/her emotion and update your judgment in real time. </p>
-          <p class="spaceText"> <b>GOOGLE CHROME IS REQUIRED.</b> The experiment may not work with other browsers.</p>
           <h4>Please read the following instructions carefully: </h4>
+          <p class="spaceText"> Welcome! I am a graduate student in Prof. David Whitney's laboratory. The purpose of this experiment is to study how we perceive other people's emotions using contextual cues in a naturalistic environment. You will be asked to watch video clips and perform a task while watching the video. Please try your best and update your judgment in real time. </p>
           <ul>
-            <li><p class="spaceText">There are maximum <span class='totalNumber'> </span> trials/videos in this experiments. Finishing all videos might take about 60 minutes or more. We will record how much time you are active in our experiment. Please try to finish as many trials as you can in this 60 minutes. However, the most important thing is that you track the emotion accurately.</li>
+            <li><p class="spaceText">There are maximum <span class='totalNumber'> </span> trials/videos in this experiments. Finishing all videos might take about 60 minutes or more. We will record how much time you are active in our experiment. Please try to finish as many trials as possible in this 60 minutes. However, the most important thing is that you perform the task accurately.</li>
             <li><p class="spaceText">Please pay full attention to the experiment. The quality of the data is very important to us. Pleaes don't use your cell phone or try to multi-task while doing the experiment. </p></li>
             <li><p class="spaceText">Please do not close the web page before you finish the experiment. If you accidentally exit the experiment, you can resume the experiment by entering your Berkeley email, and then the program will load your progress. </p></li>
             <li><p class="spaceText">Please do finish the whole experiment within <b>24 hours</b> after you signed up.</p></li>
             <li><p class="spaceText">You can receive full credits only if you participate for the full 60 minutes or complete all the trials. Your data will be kept confidential.</p></li>
           </ul>
-          <p class="spaceText"> Please send an email to <b>chenzhimin@berkeley.edu</b> with a title <u><b>'Completed Emotion Experiment'</b></u> when you finish the whole experiment. We will verify your progress and the time you spent, and assign you credits in 1-2 days. If you encountered any problem or have any suggestion, also feel free to contact the researcher. We appreciate your feedback!</p>
+          <p class="spaceText"> Please send an email to <b>chenzhimin@berkeley.edu</b> with a title <u><b>'Completed Tracking Experiment'</b></u> when you finish the whole experiment. We will verify your progress and the time you spent, and assign you credits in 1-2 days.</p>
           <p class="spaceText"> Click 'Next' to view the next page. </p>
           <!-- Navigation buttons -->
           <button id="next" type="button" onclick="Entrypoint.showPage(2)" class="btn btn-lg btn-primary">Next</button>
@@ -144,12 +148,11 @@
           <h3><u>Instructions</u></h3>
           <p class="spaceText"> Please read the document on the right carefully for instructions. Please make sure that you read all instructions by scrolling down to the bottom of the document. You will have at least 2 minutes to read. </p>
           <br/>
-          <p class="spaceText"> Click the button to begin annotating the first video when you finish reading the instructions. </p> 
+          <p class="spaceText"> Click the button to begin when you finish reading the instructions. </p> 
           <br/>
           <button disabled id="beginTrial" type="button" class="btn btn-lg btn-primary" >Begin the experiment</button>
         </div>
         <div class='row bottom-buffer col-md-9'>
-          <p> These text has be to be visible. Don't scroll down the browser. Make it larger to fill the screen if necessary.</p>
           <iframe frameborder="1" id="instructionDoc" src="https://docs.google.com/document/d/e/2PACX-1vRnbe3dDQnNJk0_FBl16QTGf9rhlKZNBy5BI61yTNmXBuFXav6z_L7S09Q-XI-khVx5V8P6As9HuMby/pub?embedded=true"></iframe>
         </div>
       </div>
@@ -158,26 +161,31 @@
         <div class='col-xs-4'>
           <h3>Trial <span id='trialNumber'></span> out of <span class='totalNumber'> </span> in total</h3>
           <div id='instructionsButton'>
-              <a href="https://docs.google.com/document/d/1B86DZ3aon9Cw7EH6wOEYoz339kHx9f6iLfaHyHofWfo/edit?usp=sharing" class="btn btn-default" target="_blank">Click to view instructions again.</a>
+              <a id = 'viewInstructionButton' href="https://docs.google.com/document/d/1B86DZ3aon9Cw7EH6wOEYoz339kHx9f6iLfaHyHofWfo/edit?usp=sharing" class="btn btn-default" target="_blank">Click to view instructions again.</a>
           </div>
-          <p class="spaceText"> The following character will be completely <b>occluded by a mask</b> and become invisible in the video. Please infer and track the real emotion of this character (but not the other characters) in the video <b>in real-time</b> based on the situation/environment this person is in. </p>
+          <p class="spaceText" id = 'InstructionPerson'> The following character will be <b>occluded by a mask</b> and become blurred out in the video. Please infer and track <u><b>the real emotions of this character</b></u> (but <u><b>NOT</b></u> other characters <u><b>NOR</b></u> the general emotion of the clip) <u><b>in real-time</b></u> based on the situation/environment this person is in. </p>
+          <p class="spaceText" id = 'InstructionScene'> One of the characters will be occluded by a mask and become blurred out in the video. Please track <u><b>the affective value of the visual scene itself</b></u> in the video<u><b> in real-time</b></u>. However, please <u><b>DON'T</b></u> track the emotions of the blurred-out character. </p>
+          <p class="spaceText" id = 'InstructionBaseline'> Your task is to track the real emotions of the following person while watching the video. Please only <u><b>track this character</b></u> (but <u><b>NOT</b></u> other characters <u><b>NOR</b></u> the general emotion of the clip) <u><b>in real-time.</b></u></p>
+          <p class="spaceText" id = 'InstructionCharacterOnly'> You will watch a video with background occluded but the following character remain visible. Your task is to track the real emotions of this character while watching the video. Please track this character <u><b>in real-time.</b></u></p>
+          <p class ='spaceText'>Even when the character is not on the screen, continue tracking and give your best guess.</p>
+
           <img id = 'imageTrack' src='img/Exp2_1.png'/>
          <!--  <div id = 'LoadingVideo'>
             <p class="spaceText"> The video is loading. Please wait a few seconds.</p>
           </div> -->
           <div id='VideoReady'>
-            <p class="spaceText"> Please put your mouse pointer at the central cross and press the <b>ENTER</b> key to start. The video won't start until the mouse pointer is centered on the cross.</p>
+            <p class="spaceText"> Please move the mouse pointer at the central cross and press <b>ENTER</b> key to start. The video won't start until the mouse pointer is centered.</p>
           </div>
           <div id='VideoStart' hidden>
-            <p class="spaceText"> The video has paused. Put the mouse point at the center cross and then press the <b>ENTER</b> key to start</p>
+            <p class="spaceText"> The video has paused. Put the mouse point at the center cross and then press the <u><b>ENTER</b></u> key to start</p>
           </div>
           <div id='MovieInstruction' hidden>
-            <p class="spaceText"> Please track the emotion <b>CLOSELY</b> and move the mouse <b>CONTINUOUSLY</b> </p>
+            <p class="spaceText"> Please track the affective value/emotion <u><b>CLOSELY</b></u> and move the mouse <u><b>CONTINUOUSLY</b></u> </p>
           </div>
       </div>
         <div id='videoContainer' class='col-xs-8'>
+          <p> <b>IMPORTANT</b>: This text must be visible during the experiment; please avoid scrolling up and down; adjust the browser size to fill the screen and zoom in (command/window and +) or out (command/window and -) if necessary. </p>
           <div id='canvasContainer'>
-            <p> These text has be to be visible. Don't scroll down the browser. Make it larger to fill the screen if necessary.</p>
             <div id='yt-player'></div>
             <canvas id='videoCanvas' ></canvas>
             <canvas id='gridCanvas'></canvas>
@@ -202,17 +210,17 @@
             <select name="seenOrNot" ><option value=""></option><option value="0">Yes</option><option value="1">No</option> <option value="2">Not sure</option> </select>
           </div>
           <div class="formField row bottom-buffer">
-            <span class="formLabel">Question 2: Please rate your level of familiarity towards the movie clip you just watched.</span>
+            <span class="formLabel">Question 2: Please rate your level of familiarity towards the movie clip you just watched: </span>
             <select name="Familiarity" ><option value=""></option><option value="1">1-Not at all familiar</option><option value="2">2-Slightly familiar</option> <option value="3">3-Somewaht familiar</option> <option value="4">4-Moderately familiar</option><option value="5">5-Extremely familiar</option></select>
           </div>
           <div class="formField row bottom-buffer">
-            <span class="formLabel">Question 3: Please rate how much do you like or enjoy this movie clip that you just watched</span>
+            <span class="formLabel">Question 3: Please rate how much do you like or enjoy this movie clip that you just watched: </span>
             <select name="Likeness" ><option value=""></option><option value="1">1-Strongly dislike </option><option value="2">2-Somewhat dislike</option> <option value="3">3-Neutral</option> <option value="4">4-Somewhat like</option><option value="5">5-Strongly like</option></select>
           </div>
 
           <div class="formField row bottom-buffer">
-            <span class="formLabel">Question 4: please rate how confident you are tracking the emotions in this trial? </span>
-            <select name="Confidence" ><option value=""></option><option value="1">1-Not at all confident </option><option value="2">2-Not confident</option> <option value="3">3-Not sure</option> <option value="4">4-Confident</option><option value="5">5-Very confident </option></select>
+            <span class="formLabel">Question 4: please rate how confident you are tracking the emotions in this trial: </span>
+            <select name="Confidence" ><option value=""></option><option value="1">1-Not at all confident </option><option value="2">2-Not confident</option> <option value="3">3-Somewhat confident, with some errors</option> <option value="4">4-Confident</option><option value="5">5-Very confident </option></select>
           </div>
 
           <div class="formField row bottom-buffer">
@@ -226,7 +234,7 @@
       <div id="EndingExp" class="page container">
         <h3><u>You have finished the experiment!</u></h3>
         <p class="spaceText"> Thank you so much!</p>
-        <p class="spaceText"> Please send an email to <b>chenzhimin@berkeley.edu</b> with a title <u><b>'Completed Emotion Experiment'</b></u>. We will verify your progress and the time you spent, and assign you credits in 1-2 days. If you encountered any problem or have any suggestion, also feel free to contact the researcher. We appreciate your feedback!</p>
+        <p class="spaceText"> Please send an email to <b>chenzhimin@berkeley.edu</b> with a title <u><b>'Completed Tracking Experiment'</b></u>. We will verify your progress and the time you spent, and assign you credits in 1-2 days. If you encountered any problem or have any suggestion, also feel free to contact the researcher. We appreciate your feedback!</p>
         <p class="spaceText"> You can close the web page now.</p> 
       </div>
 
