@@ -18211,15 +18211,14 @@ function mouseMoveHandler(event) {
         longestTimeStill = diff_time;
       }  
     }
+    mouse_time_save = Math.round(mouse_time_save*100)/100;
     if (user.projectVersion == 'scene'){
-      valenceRating = Math.round(valenceRating*100)/100;
-      arousalRating = Math.round(arousalRating*100)/100;
-      mouse_time_save = Math.round(mouse_time_save*100)/100;
+      valenceRating = Math.round(valenceRating*1000)/1000;
+      arousalRating = Math.round(arousalRating*1000)/1000;
       trialEntries.push({valenceRating,arousalRating,mouse_time_save,mouse_posX_save,mouse_posY_save});
       // console.log(valenceRating + ' ' + arousalRating);
     }else{
-      emotionStrength = Math.round(emotionStrength*100)/100;
-      mouse_time_save = Math.round(mouse_time_save*100)/100;
+      emotionStrength = Math.round(emotionStrength*1000)/1000;
       trialEntries.push({emotionLabel,emotionStrength,mouse_time_save,mouse_posX_save,mouse_posY_save});
     }
   } 
