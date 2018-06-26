@@ -17836,8 +17836,8 @@ const valence_direction = Math.round(Math.random());
 
 
 const MAX_TRIALS = 13;
-const throttleTime = 0.1; //in seconds
-var waitSeconds = 120; //instruction waiting time (in seconds)
+const throttleTime = 0.2; //in seconds
+var waitSeconds = 5; //instruction waiting time (in seconds)
 const debugMode = 1;
 const TimeStillLimit = 20;
 // for loop does not work here
