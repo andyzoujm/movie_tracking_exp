@@ -658,7 +658,8 @@ function createUser() {
       if (message) {
         // user.valenceDirection.push(valence_direction);
         showPage(3);
-        $('#instructionDoc').attr('src', user.instructionURL);
+        $('#instructionDoc')[0].contentWindow.location.replace(user.instructionURL);
+        // $('#instructionDoc').attr('src', user.instructionURL);
         $('#viewInstructionButton').attr('href', user.instructionHref);
         var interval = setInterval(function() {
           if (!waitSeconds) {
@@ -726,7 +727,8 @@ function checkEmail() {
       user = message;
       window.alert(alertStr);
       showPage(3);
-      $('#instructionDoc').attr('src', user.instructionURL);
+      $('#instructionDoc')[0].contentWindow.location.replace(user.instructionURL);
+      // $('#instructionDoc').attr('src', user.instructionURL);
       $('#viewInstructionButton').attr('href', user.instructionHref);
       $('#beginTrial').prop('disabled', false);
     }
@@ -828,6 +830,5 @@ module.exports = {
   $: $,
   getPlayerTime: getPlayerTime,
   trialEntries: trialEntries,
-  user: user,
   player: player,
 }
