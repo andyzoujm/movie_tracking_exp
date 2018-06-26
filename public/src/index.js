@@ -36,8 +36,8 @@ const valence_direction = Math.round(Math.random());
 
 const MAX_TRIALS = 13;
 const throttleTime = 0.2; //in seconds
-var waitSeconds = 5; //instruction waiting time (in seconds)
-const debugMode = 1;
+var waitSeconds = 120; //instruction waiting time (in seconds)
+const debugMode = 0;
 const TimeStillLimit = 20;
 // for loop does not work here
 const sceneURL0 = 'https://docs.google.com/document/d/e/2PACX-1vRolz-hraYuU8ETW1ppMi9wmHUTNmks-fsViG0MNNf6XyD6_Ic5m5tBHLkFzafzVgGuoOxoCf-xibxl/pub?embedded=true';
