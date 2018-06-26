@@ -18212,9 +18212,14 @@ function mouseMoveHandler(event) {
       }  
     }
     if (user.projectVersion == 'scene'){
+      valenceRating = Math.round(valenceRating*100)/100;
+      arousalRating = Math.round(arousalRating*100)/100;
+      mouse_time_save = Math.round(mouse_time_save*100)/100;
       trialEntries.push({valenceRating,arousalRating,mouse_time_save,mouse_posX_save,mouse_posY_save});
       // console.log(valenceRating + ' ' + arousalRating);
     }else{
+      emotionStrength = Math.round(emotionStrength*100)/100;
+      mouse_time_save = Math.round(mouse_time_save*100)/100;
       trialEntries.push({emotionLabel,emotionStrength,mouse_time_save,mouse_posX_save,mouse_posY_save});
     }
   } 
