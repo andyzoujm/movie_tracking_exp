@@ -30,7 +30,7 @@ const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
 
 const valence_direction = Math.round(Math.random()); 
 // const valence_direction = 1; //positive on the left and negative on the right
-// const valence_direction = 1; //positive on the right and negative on the left
+// const valence_direction = 0; //positive on the right and negative on the left
 
 
 
@@ -369,8 +369,12 @@ function mouseMoveHandler(event) {
   if (player.getState() === 'playing'){
     // convert to valence and arousal ratings from -1 to 1
     if (user.projectVersion == 'scene'){
-      valenceRating = (mouse_posX_save - canvasRect.left - topLeftX - recWidth/2)*2/recWidth;
       arousalRating = (canvasRect.top + recHeight/2 + topLeftY - mouse_posY_save)*2/recHeight;
+      if (user.valenceDirection === 0){
+        valenceRating = (mouse_posX_save - canvasRect.left - topLeftX - recWidth/2)*2/recWidth;
+      }else{
+        valenceRating = (canvasRect.left + topLeftX + recWidth/2 - mouse_posX_save)*2/recWidth;
+      }
     }else{
       var distanceFromCenterX = mouse_posX_save - canvasRect.left - videoCanvas.width/2;
       var distanceFromCenterY = mouse_posY_save - canvasRect.top - videoCanvas.height/2;
