@@ -22,8 +22,8 @@ const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 
 // 2: characterOnly
 
 // about experiment version
-const sceneOrPerson = Math.round(Math.random()); // randome number of 0 or 1
-// const sceneOrPerson = 0;
+// const sceneOrPerson = Math.round(Math.random()); // randome number of 0 or 1
+const sceneOrPerson = 0;
 const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
 //1: scene
 //0: person
