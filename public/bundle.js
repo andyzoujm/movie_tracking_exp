@@ -17813,7 +17813,7 @@ const playlist = app.service('/playlist');
 const db = app.service('/mongo');
 
 // 0 is scene rating project; 1 is emotion category project
-const Project_version = 'scene';  // ‘scene or category’
+const Project_version = 'category';  // ‘scene or category’
 
 const personOrContext = Math.round(Math.random()*2); // randome number of 0 or 1 or 2
 // const personOrContext = 0;
@@ -17823,8 +17823,8 @@ const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 
 // 2: characterOnly
 
 // about experiment version
-// const sceneOrPerson = Math.round(Math.random()); // randome number of 0 or 1
-const sceneOrPerson = 0;
+const sceneOrPerson = Math.round(Math.random()); // randome number of 0 or 1
+// const sceneOrPerson = 0;
 const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
 //1: scene
 //0: person
