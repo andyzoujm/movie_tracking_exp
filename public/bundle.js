@@ -17816,7 +17816,8 @@ const db = app.service('/mongo');
 const Project_version = 'category';  // ‘scene or category’
 
 // const personOrContext = Math.round(Math.random()*2); // randome number of 0 or 1 or 2
-const personOrContext = Math.round(Math.random()*1); // randome number of 0 or 1 or 2
+// const personOrContext = Math.round(Math.random()*1); // randome number of 0 or 1 or 2
+const personOrContext = 1
 // const personOrContext = 0;
 const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 1 ? 'characterOnly' : 'contextOnly';
 // 0: baseline
