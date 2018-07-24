@@ -17817,7 +17817,7 @@ const Project_version = 'category';  // ‘scene or category’
 
 // const personOrContext = Math.round(Math.random()*2); // randome number of 0 or 1 or 2
 // const personOrContext = Math.round(Math.random()*1); // randome number of 0 or 1 or 2
-const personOrContext = 0
+const personOrContext = 1
 // const personOrContext = 0;
 const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 1 ? 'characterOnly' : 'contextOnly';
 // 0: baseline
@@ -17825,16 +17825,18 @@ const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 
 // 2: characterOnly
 
 // about experiment version
-const sceneOrPerson = Math.round(Math.random()); // randome number of 0 or 1
-// const sceneOrPerson = 0;
-const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
+// const sceneOrPerson = Math.round(Math.random())+2; // randome number of 0 or 1
+const sceneOrPerson = 3;
+// const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
+const Experiment_type = sceneOrPerson === 2 ? 'baselineContinuous':'characterOnlyContinuous';
 //1: scene
 //0: person
+//2: baseline
+//3: contextOnly
 
 const valence_direction = Math.round(Math.random()); 
 // const valence_direction = 1; //positive on the left and negative on the right
 // const valence_direction = 0; //positive on the right and negative on the left
-
 
 
 const MAX_TRIALS = 13;
@@ -17851,6 +17853,11 @@ const baselineURL = 'https://docs.google.com/document/d/e/2PACX-1vRnshbH70Bi6Qo6
 const characterOnlyURL = 'https://docs.google.com/document/d/e/2PACX-1vRD2uhwCgQG_lu7SyiqcshVNfoAj1dF0f5ph_y62yUJpnc3-eolRyPHNHL9BSgA9UldPSoI4-QJBBZ-/pub?embedded=true';
 const contextOnlyURL = 'https://docs.google.com/document/d/e/2PACX-1vS6_UDxx8uQWj6RguU11rlKMoPRzoHJ8LO9yON2PEWjbDHgMeCjcsY9LfNCNXC0_CvtcObR5sYMerZZ/pub?embedded=true';
 
+const baselineContinuousURL0 = 'https://docs.google.com/document/d/e/2PACX-1vSUmp4-swAryAgOwKHcsK7IvVjW5BCFfkAHQFnXSVTY5-9taGo1_k5RnS3_Zqqb4sHsko62QRDQ7yCW/pub?embedded=true';
+const baselineContinuousURL1 = 'https://docs.google.com/document/d/e/2PACX-1vThKYBU0giYqQ1fqEcFw7nS_yiDDiuH3HKHTqqgoX8MbkD6c3XLgnwUET6We_skpBQLDCwEvaMwgDv7/pub?embedded=true';
+const characterOnlyContinuousURL0 = 'https://docs.google.com/document/d/e/2PACX-1vRHFOuRwliaCW6YLSs1agY5XVJfuAns6Zq8D5XHKtcM1mLLOw5H15KW1AY08OG-Xv24Xwt_nxBuaf78/pub?embedded=true';
+const characterOnlyContinuousURL1 = 'https://docs.google.com/document/d/e/2PACX-1vS8tMN6oEkQA8g5RtueuFiLBVqiQNHP21OcKMo1CVZoERpvvN0VXvOtAq3I1SmksNPczcBV11WCKxxu/pub?embedded=true';
+
 const sceneHref0 = 'https://docs.google.com/document/d/1TlWZGEolJQQ-LqZJb_NXOk9dydJAtDSH_zAvKMSVtRI/edit?usp=sharing';
 const personHref0 = 'https://docs.google.com/document/d/1B86DZ3aon9Cw7EH6wOEYoz339kHx9f6iLfaHyHofWfo/edit?usp=sharing';
 const sceneHref1 = 'https://docs.google.com/document/d/1XykrTl18kxoyeSpqrEd-d08NTosX_0LFH7EweCaVp4A/edit?usp=sharing';
@@ -17858,6 +17865,11 @@ const personHref1 = 'https://docs.google.com/document/d/1500qSCqhNq-up9TlUEj58SJ
 const baselineHref = 'https://docs.google.com/document/d/1HU3S1jOpjVhsqmBWFsUNFJOJabGbyQ4cOLehlOzYilM/edit?usp=sharing';
 const characterOnlyHref = 'https://docs.google.com/document/d/1wIcl7PBkUP6fwXAhkeE3-w6FzCxysbib6F5F1KNSbOw/edit?usp=sharing';
 const contextOnlyHref = 'https://docs.google.com/document/d/1yz1T0TjR86pT23g00mO_jwyvYGEIP93zGPCopnxorV4/edit?usp=sharing';
+
+const baselineContinuousHref0 = 'https://docs.google.com/document/d/16Pth2PquuHpKKdsaBUtWOoP7qVf5llWVGjUK5xNZbGs/edit?usp=sharing';
+const baselineContinuousHref1 = 'https://docs.google.com/document/d/1xsmIHw-FkXvIhOYUQ0uFJVXHsjDk3qCWpo-M2DRw0iE/edit?usp=sharing';
+const characterOnlyContinuousHref0 = 'https://docs.google.com/document/d/17O77cAPCcTlBO6GThWvmfPPScZTD8bOIiiZpxIdjwZg/edit?usp=sharing';
+const characterOnlyContinuousHref1 = 'https://docs.google.com/document/d/10yWdorBe7NgjmKKgSo-vwJWP-9i0gDYlSewy1fJ0RIw/edit?usp=sharing';
 
 const playlistContextOnly = 'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
 const playlistBaseline = 'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
@@ -17952,9 +17964,9 @@ $(document).ready(function() {
 
 function determineCondition(){
   if (Project_version === 'scene'){
-    playlistId =  playlistContextOnly;
-    practiceId = practiceContextOnly;
-    if (Experiment_type == 'scene'){
+    if (Experiment_type === 'scene'){
+      playlistId =  playlistContextOnly;
+      practiceId = practiceContextOnly;
       if (valence_direction == 0){
         instructionURL = sceneURL0;
         instructionHref = sceneHref0;
@@ -17962,13 +17974,35 @@ function determineCondition(){
         instructionURL = sceneURL1;
         instructionHref = sceneHref1;
       }
-    } else {
+    } else if (Experiment_type === 'person') {
+      playlistId =  playlistContextOnly;
+      practiceId = practiceContextOnly;
       if (valence_direction == 0){
         instructionURL = personURL0;
         instructionHref = personHref0;
       }else{
         instructionURL = personURL1;
         instructionHref = personHref1;
+      }
+    }else if (Experiment_type === 'baselineContinuous') {
+      playlistId =  playlistBaseline;
+      practiceId = practiceBaseline;
+      if (valence_direction == 0){
+        instructionURL = baselineContinuousURL0;
+        instructionHref = baselineContinuousHref0;
+      }else{
+        instructionURL = baselineContinuousURL1;
+        instructionHref = baselineContinuousHref1;
+      }
+    }else if (Experiment_type === 'characterOnlyContinuous') {
+      playlistId =  playlistCharacterOnly;
+      practiceId = practiceCharacterOnly;
+      if (valence_direction == 0){
+        instructionURL = characterOnlyContinuousURL0;
+        instructionHref = characterOnlyContinuousHref0;
+      }else{
+        instructionURL = characterOnlyContinuousURL1;
+        instructionHref = characterOnlyContinuousHref1;
       }
     }
   }else{
@@ -18006,7 +18040,11 @@ function beginTrial() {
   var videoNum = videoName.match(/\d+/);
   // var videoNum = $(this).attr('id').split('_').pop();
   if (user.projectVersion === 'scene'){
-    $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png');
+    if (user.experimentType == 'scene' || user.experimentType == 'person'){
+      $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png');
+    }else{
+      $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_baseline.png'); 
+    }
   }else{
     if (user.conditionType == 'contextOnly'){
       $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png'); 
@@ -18023,10 +18061,22 @@ function beginTrial() {
       $('#InstructionCharacterOnly').hide();
       $('#InstructionScene').show();
       $('#imageTrack').hide();
-    }else{
+    }else if (user.experimentType === 'person'){
       $('#InstructionPerson').show();
       $('#InstructionBaseline').hide();
       $('#InstructionCharacterOnly').hide();
+      $('#InstructionScene').hide();
+      $('#imageTrack').show();
+    }else if (user.experimentType === 'baselineContinuous'){
+      $('#InstructionPerson').hide();
+      $('#InstructionBaseline').show();
+      $('#InstructionCharacterOnly').hide();
+      $('#InstructionScene').hide();
+      $('#imageTrack').show();
+    }else if (user.experimentType === 'characterOnlyContinuous'){
+      $('#InstructionPerson').hide();
+      $('#InstructionBaseline').hide();
+      $('#InstructionCharacterOnly').show();
       $('#InstructionScene').hide();
       $('#imageTrack').show();
     }
