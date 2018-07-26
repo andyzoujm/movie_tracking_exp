@@ -12,7 +12,7 @@ const playlist = app.service('/playlist');
 const db = app.service('/mongo');
 
 // 0 is scene rating project; 1 is emotion category project
-const Project_version = 'category';  // ‘scene or category’
+const Project_version = 'scene';  // ‘scene or category’
 
 // const personOrContext = Math.round(Math.random()*2); // randome number of 0 or 1 or 2
 // const personOrContext = Math.round(Math.random()*1); // randome number of 0 or 1 or 2
@@ -25,7 +25,7 @@ const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 
 
 // about experiment version
 // const sceneOrPerson = Math.round(Math.random())+2; // randome number of 0 or 1
-const sceneOrPerson = 3;
+const sceneOrPerson = 1;
 // const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
 const Experiment_type = sceneOrPerson === 2 ? 'baselineContinuous':'characterOnlyContinuous';
 //1: scene
