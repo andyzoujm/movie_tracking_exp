@@ -17827,8 +17827,8 @@ const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 
 // about experiment version
 // const sceneOrPerson = Math.round(Math.random())+2; // randome number of 0 or 1
 const sceneOrPerson = 1;
-// const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
-const Experiment_type = sceneOrPerson === 2 ? 'baselineContinuous':'characterOnlyContinuous';
+const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
+// const Experiment_type = sceneOrPerson === 2 ? 'baselineContinuous':'characterOnlyContinuous';
 //1: scene
 //0: person
 //2: baseline
