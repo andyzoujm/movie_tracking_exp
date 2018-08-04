@@ -24,14 +24,14 @@ const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 
 // 2: characterOnly
 
 // about experiment version
-// const sceneOrPerson = Math.round(Math.random())+2; // randome number of 0 or 1
-const sceneOrPerson = 0;
-const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
-// const Experiment_type = sceneOrPerson === 2 ? 'baselineContinuous':'characterOnlyContinuous';
+const sceneOrPerson = Math.round(Math.random())+2; // randome number of 0 or 1
+// const sceneOrPerson = 0;
+// const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
+const Experiment_type = sceneOrPerson === 2 ? 'baselineContinuous':'characterOnlyContinuous';
 //1: scene
 //0: person
 //2: baseline
-//3: contextOnly
+//3: characterOnly
 
 const valence_direction = Math.round(Math.random()); 
 // const valence_direction = 1; //positive on the left and negative on the right
