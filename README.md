@@ -1,10 +1,9 @@
 # video-annotation
 
-Video Annotation Website made for annotating driving behaviors in videos using natural languages.
+Video Annotation Website made for tracking emotion of characters in videos.
 
-Demo website link: https://berkeley-video-annotation.herokuapp.com/
+Demo website link: http://emotion-tracking.herokuapp.com
 
-![Example](/Annotation_website_screen.png)
 
 ## About
 
