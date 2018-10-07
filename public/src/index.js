@@ -12,11 +12,9 @@ const playlist = app.service('/playlist');
 const db = app.service('/mongo');
 
 // 0 is scene rating project; 1 is emotion category project
-const Project_version = 'category';  // ‘scene or category’
-
+const Project_version = 'control';  // ‘scene or category or control’
+const experimentTime = 90 ;
 // const personOrContext = Math.round(Math.random()*2); // randome number of 0 or 1 or 2
-// const personOrContext = Math.round(Math.random()*1); // randome number of 0 or 1 or 2
-// const personOrContext = 2
 const personOrContext = 2;
 const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 1 ? 'characterOnly' : 'contextOnly';
 // 0: baseline
@@ -24,9 +22,9 @@ const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 
 // 1: characterOnly
 
 // about experiment version
-const sceneOrPerson = Math.round(Math.random())+2; // randome number of 0 or 1
 // const sceneOrPerson = 0;
 // const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
+const sceneOrPerson = Math.round(Math.random())+2; // randome number of 0 or 1
 const Experiment_type = sceneOrPerson === 2 ? 'baselineContinuous':'characterOnlyContinuous';
 //1: scene
 //0: person
@@ -35,14 +33,15 @@ const Experiment_type = sceneOrPerson === 2 ? 'baselineContinuous':'characterOnl
 
 const valence_direction = Math.round(Math.random()); 
 // const valence_direction = 1; //positive on the left and negative on the right
-// const valence_direction = 0; //positive on the right and negative on the left
+// const valence_direction = 1; //positive on the right and negative on the left
 
-
-const MAX_TRIALS = 13;
+const PRACTICE_TRIAL = 2;
+const MAX_TRIALS = 19;
 const throttleTime = 0.2; //in seconds
-var waitSeconds = 120; //instruction waiting time (in seconds)
+var waitSeconds = 300; //instruction waiting time (in seconds)
 const debugMode = 0;
-const TimeStillLimit = 20;
+const TimeStillLimit = 15;
+
 // for loop does not work here
 const sceneURL0 = 'https://docs.google.com/document/d/e/2PACX-1vRolz-hraYuU8ETW1ppMi9wmHUTNmks-fsViG0MNNf6XyD6_Ic5m5tBHLkFzafzVgGuoOxoCf-xibxl/pub?embedded=true';
 const personURL0 = 'https://docs.google.com/document/d/e/2PACX-1vRnbe3dDQnNJk0_FBl16QTGf9rhlKZNBy5BI61yTNmXBuFXav6z_L7S09Q-XI-khVx5V8P6As9HuMby/pub?embedded=true';
@@ -51,6 +50,8 @@ const personURL1 = 'https://docs.google.com/document/d/e/2PACX-1vQobREqq_tNT2TF4
 const baselineURL = 'https://docs.google.com/document/d/e/2PACX-1vRnshbH70Bi6Qo6lTXyY2Pg9lRhCN2riEYOLPJWgtakQ1Yk5xPJAIRlcYeBs-uZX1qv7hKtK-ajWN3w/pub?embedded=true';
 const characterOnlyURL = 'https://docs.google.com/document/d/e/2PACX-1vRD2uhwCgQG_lu7SyiqcshVNfoAj1dF0f5ph_y62yUJpnc3-eolRyPHNHL9BSgA9UldPSoI4-QJBBZ-/pub?embedded=true';
 const contextOnlyURL = 'https://docs.google.com/document/d/e/2PACX-1vS6_UDxx8uQWj6RguU11rlKMoPRzoHJ8LO9yON2PEWjbDHgMeCjcsY9LfNCNXC0_CvtcObR5sYMerZZ/pub?embedded=true';
+const controlURL0 = 'https://docs.google.com/document/d/e/2PACX-1vTdzE2-LOyjEyOZZf89hq5iLhkOrrwdwE16Z8ikB818eUCKv-0F9N6GDOxPJXpMoRPfSaWMeewpXU0E/pub?embedded=true';
+const controlURL1 = 'https://docs.google.com/document/d/e/2PACX-1vQQAOiuOACfwSlQgifFL385jW439z-XwOwJCN0n6xDPo3G4DSIyb9Ua3ZnlZAD1XOmyxMtFP28idAQ4/pub?embedded=true';
 
 const baselineContinuousURL0 = 'https://docs.google.com/document/d/e/2PACX-1vSUmp4-swAryAgOwKHcsK7IvVjW5BCFfkAHQFnXSVTY5-9taGo1_k5RnS3_Zqqb4sHsko62QRDQ7yCW/pub?embedded=true';
 const baselineContinuousURL1 = 'https://docs.google.com/document/d/e/2PACX-1vThKYBU0giYqQ1fqEcFw7nS_yiDDiuH3HKHTqqgoX8MbkD6c3XLgnwUET6We_skpBQLDCwEvaMwgDv7/pub?embedded=true';
@@ -64,6 +65,8 @@ const personHref1 = 'https://docs.google.com/document/d/1500qSCqhNq-up9TlUEj58SJ
 const baselineHref = 'https://docs.google.com/document/d/1HU3S1jOpjVhsqmBWFsUNFJOJabGbyQ4cOLehlOzYilM/edit?usp=sharing';
 const characterOnlyHref = 'https://docs.google.com/document/d/1wIcl7PBkUP6fwXAhkeE3-w6FzCxysbib6F5F1KNSbOw/edit?usp=sharing';
 const contextOnlyHref = 'https://docs.google.com/document/d/1yz1T0TjR86pT23g00mO_jwyvYGEIP93zGPCopnxorV4/edit?usp=sharing';
+const controlHref0 = 'https://docs.google.com/document/d/1qGA6b47xS6C0ZO9skOz84bSyYC5vU5JUXKuqE1Ja9Mk/edit?usp=sharing'
+const controlHref1 = 'https://docs.google.com/document/d/1mLogjwTwn9Rzix9RSkVlYUTTX9gVT9C3tim1t0B3SrY/edit?usp=sharing'
 
 const baselineContinuousHref0 = 'https://docs.google.com/document/d/16Pth2PquuHpKKdsaBUtWOoP7qVf5llWVGjUK5xNZbGs/edit?usp=sharing';
 const baselineContinuousHref1 = 'https://docs.google.com/document/d/1xsmIHw-FkXvIhOYUQ0uFJVXHsjDk3qCWpo-M2DRw0iE/edit?usp=sharing';
@@ -73,13 +76,20 @@ const characterOnlyContinuousHref1 = 'https://docs.google.com/document/d/10yWdor
 const playlistContextOnly = 'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
 const playlistBaseline = 'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
 const playlistCharacterOnly = 'PLm09SE4GxfvVT0cWTj7m3_0wrgkHu7X7t';
-const practiceContextOnly = 'agfaUcSffms';
+const playlistControl = 'PLm09SE4GxfvX--LAJf6-d1j64JP_n90GN';
+const playlistControlFull = 'PLm09SE4GxfvVKETEW1kZgMCpVhPotv_lY';
+const practiceContextOnly = 'nGRc-cD6tTw';
 const practiceBaseline = 'oBhS-2-utr4';
 const practiceCharacterOnly = 'fQG-vbx_V-g';
+const practiceControl = 'ZBJs6_6Z2z4'
+
 var playlistId;
+var playlistId2;
 var practiceId;
+var practiceId2;
 var instructionURL;
 var instructionHref;
+var continuousOrCategory;
 
 const wedgesAngle = [-30,-90,-150,30,90,150];
 const categoriesAngle = [0,-60,-120,180,120,60];
@@ -141,8 +151,11 @@ var user = {
   projectVersion: Project_version,
   longestTimeStill: [],
   valenceDirection: valence_direction,
+  continuousOrCategory:continuousOrCategory,
   playlistId:playlistId,
+  playlistId2:playlistId2,
   practiceId:practiceId,
+  practiceId2:practiceId2,
   instructionURL:instructionURL,
   instructionHref:instructionHref,
   categoryOrder: categoryOrder,
@@ -156,6 +169,7 @@ $(document).ready(function() {
   preventNavigation();
   showPage(0);
   $('.totalNumber').text(MAX_TRIALS);
+  $('.totalTime').text(experimentTime);
   registerHandlers();
   infoFormHandler();
   setupGridDimentional();
@@ -163,6 +177,7 @@ $(document).ready(function() {
 
 function determineCondition(){
   if (Project_version === 'scene'){
+    continuousOrCategory = 0;
     if (Experiment_type === 'scene'){
       playlistId =  playlistContextOnly;
       practiceId = practiceContextOnly;
@@ -204,7 +219,8 @@ function determineCondition(){
         instructionHref = characterOnlyContinuousHref1;
       }
     }
-  }else{
+  }else if (Project_version == 'category'){
+    continuousOrCategory = 1;
     if (Condition_type === 'baseline'){
       playlistId =  playlistBaseline;
       practiceId = practiceBaseline;
@@ -221,6 +237,19 @@ function determineCondition(){
       instructionURL = characterOnlyURL;
       instructionHref = characterOnlyHref;
     }
+  }else if (Project_version == 'control'){
+    continuousOrCategory = 0;
+    playlistId =  playlistControl;
+    playlistId2 =  playlistControlFull;
+    practiceId = practiceControl;
+    practiceId2 = practiceContextOnly
+    if (valence_direction == 0){
+      instructionURL = controlURL0;
+      instructionHref = controlHref0;
+    }else{
+      instructionURL = controlURL1;
+      instructionHref = controlHref1;
+    }
   }
 
 }
@@ -229,7 +258,7 @@ function determineCondition(){
 function beginTrial() {
   const currentTrial = user.currentTrial;
   $('#trialNumber').text(currentTrial + 1);
-  $('.totalNumber').text(MAX_TRIALS);
+  $('.totalTime').text(experimentTime);
   const videoId = _.get(user.trialVideos[currentTrial], 'videoId');
   const videoName = _.get(user.trialVideos[currentTrial], 'title');
   if (!videoId) {
@@ -237,19 +266,24 @@ function beginTrial() {
     return;
   }
   var videoNum = videoName.match(/\d+/);
+  var regex_occlusion = RegExp('occlusion');
+  var regex_control = RegExp('control');
+
   // var videoNum = $(this).attr('id').split('_').pop();
   if (user.projectVersion === 'scene'){
-    if (user.experimentType == 'scene' || user.experimentType == 'person'){
+    if (user.experimentType === 'scene' || user.experimentType === 'person'){
       $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png');
     }else{
       $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_baseline.png'); 
     }
-  }else{
-    if (user.conditionType == 'contextOnly'){
+  }else if (user.projectVersion === 'category'){
+    if (user.conditionType === 'contextOnly'){
       $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png'); 
     }else{
       $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_baseline.png'); 
     }
+  } else if (user.projectVersion === 'control'){
+    $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png');
   }
   trialStart = Date.now(); //get start time of the trial
   showPage(4);
@@ -279,26 +313,41 @@ function beginTrial() {
       $('#InstructionScene').hide();
       $('#imageTrack').show();
     }
-  }else{
+    $('#InstructionControl').hide();
+    $('#characterInvisible').show();
+  }else if (user.projectVersion === 'category'){
     if (user.conditionType === 'baseline'){
       $('#InstructionPerson').hide();
       $('#InstructionBaseline').show();
       $('#InstructionCharacterOnly').hide();
-      $('#InstructionScene').hide();
-      $('#imageTrack').show();
     }else if (user.conditionType === 'contextOnly'){
       $('#InstructionPerson').show();
       $('#InstructionBaseline').hide();
       $('#InstructionCharacterOnly').hide();
-      $('#InstructionScene').hide();
-      $('#imageTrack').show();
     }else if (user.conditionType === 'characterOnly'){
       $('#InstructionPerson').hide();
       $('#InstructionBaseline').hide();
       $('#InstructionCharacterOnly').show();
-      $('#InstructionScene').hide();
-      $('#imageTrack').show();
     }
+    $('#InstructionControl').hide();
+    $('#InstructionScene').hide();
+    $('#imageTrack').show();
+    $('#characterInvisible').show();
+  }else if(user.projectVersion === 'control'){
+    if (regex_occlusion.test(videoName)){
+      $('#InstructionPerson').show();
+      $('#InstructionControl').hide();
+      $('#characterInvisible').show();
+    }else if (regex_control.test(videoName)){
+      $('#InstructionPerson').hide();
+      $('#InstructionControl').show();
+      $('#characterInvisible').hide();
+    }
+    $('#InstructionBaseline').hide();
+    $('#InstructionCharacterOnly').hide();
+    $('#InstructionScene').hide();
+    $('#imageTrack').show();
+
   }
   setupGridDimentional();
   player.load(videoId,0);
@@ -335,7 +384,24 @@ function infoFormHandler() {
   $('#submitTrial').click(checkForm);
 }
 
+function combinePlaylist(id_1, id_2, params, numResults){
+  return Promise.all([getPlaylist(id_1, params),getPlaylist(id_2, params)])
+    .then(function(values) {
+      shuffledIndex = _.shuffle(_.range(numResults));
+      console.warn(shuffledIndex);
+      var middleIndex = Math.floor(numResults / 2);
+      console.warn(middleIndex);
+      var firstSlice = shuffledIndex.slice(0, middleIndex);
+      var secondSlice = shuffledIndex.slice(middleIndex, shuffledIndex.length)
+      console.warn(firstSlice);
+      console.warn(secondSlice);
 
+      var selected_1 = _.at(values[0].results, firstSlice);
+      var selected_2 = _.at(values[1].results, secondSlice);
+      const combined = _.shuffle(selected_1.concat(selected_2));
+      return {id: values[0].id + values[1].id, results: combined};
+  });
+}
 // set up player functions 
 function getPlaylist(id, params) {
   return playlist.get(id, params).then(function(message) {
@@ -420,14 +486,14 @@ function mouseMoveHandler(event) {
   // record mouse movements
   if (player.getState() === 'playing'){
     // convert to valence and arousal ratings from -1 to 1
-    if (user.projectVersion == 'scene'){
+    if (user.continuousOrCategory === 0){
       arousalRating = (canvasRect.top + recHeight/2 + topLeftY - mouse_posY_save)*2/recHeight;
       if (user.valenceDirection === 0){
         valenceRating = (mouse_posX_save - canvasRect.left - topLeftX - recWidth/2)*2/recWidth;
       }else{
         valenceRating = (canvasRect.left + topLeftX + recWidth/2 - mouse_posX_save)*2/recWidth;
       }
-    }else{
+    }else if (user.continuousOrCategory === 1){
       var distanceFromCenterX = mouse_posX_save - canvasRect.left - videoCanvas.width/2;
       var distanceFromCenterY = mouse_posY_save - canvasRect.top - videoCanvas.height/2;
       var distanceFromCenter = Math.pow(Math.pow(distanceFromCenterX,2) + Math.pow(distanceFromCenterY,2),0.5);
@@ -463,12 +529,12 @@ function mouseMoveHandler(event) {
       }  
     }
     mouse_time_save = Math.round(mouse_time_save*100)/100;
-    if (user.projectVersion == 'scene'){
+    if (user.continuousOrCategory === 0){
       valenceRating = Math.round(valenceRating*1000)/1000;
       arousalRating = Math.round(arousalRating*1000)/1000;
       trialEntries.push({valenceRating,arousalRating,mouse_time_save,mouse_posX_save,mouse_posY_save});
       // console.log(valenceRating + ' ' + arousalRating);
-    }else{
+    }else if (user.continuousOrCategory === 1){
       emotionStrength = Math.round(emotionStrength*1000)/1000;
       trialEntries.push({emotionLabel,emotionStrength,mouse_time_save,mouse_posX_save,mouse_posY_save});
     }
@@ -506,9 +572,9 @@ document.addEventListener("mousemove", function(event){
   videoCtx.textAlign="center";
   const shift_y_1 = -45;
   const shift_y_2 = -25;
-  if (user.projectVersion === 'scene'){
+  if (user.continuousOrCategory === 0){
     drawMouseLinesGrid();
-  }else{
+  }else if (user.continuousOrCategory === 1){
     drawMouseLinesCircle();
   }
 
@@ -604,9 +670,9 @@ function setupGridDimentional() {
 
   gridCtx.lineWidth="1";
   // $('#gridCanvas').show();
-  if (user.projectVersion === 'scene'){
+  if (user.continuousOrCategory === 0){
     drawGrid();
-  }else{
+  }else if (user.continuousOrCategory === 1){
     drawCircle();
   }
   
@@ -698,12 +764,19 @@ function createUser() {
   }
   user._id = user.info.email;
 
-  getPlaylist(user.playlistId, {
-    query: {
-      maxResults: MAX_TRIALS-1,
+  // getPlaylist(user.playlistId, {
+  //   query: {
+  //     maxResults: MAX_TRIALS-1,
+  //   }
+  // })
+  combinePlaylist(user.playlistId, user.playlistId2, {}, MAX_TRIALS - PRACTICE_TRIAL).then(message => {
+    console.log(message);
+    if (user.projectVersion == 'control'){
+      user.trialVideos.push({videoId:user.practiceId2, title:'0_occlusion'});
+      user.trialVideos.push({videoId:user.practiceId, title:'0_control'});
+    }else{
+      user.trialVideos.push({videoId:user.practiceId, title:'0_occlusion'});
     }
-  }).then(message => {
-    user.trialVideos.push({videoId:user.practiceId, title:'0_context'});
     Array.prototype.push.apply(user.trialVideos, message.results);
 
     createEntry(user).then(message => {
@@ -881,6 +954,7 @@ module.exports = {
   findAll: findAll,
   $: $,
   getPlayerTime: getPlayerTime,
+  getPlaylist: getPlaylist,
   trialEntries: trialEntries,
   player: player,
 }

@@ -18,7 +18,6 @@ class Service {
     const self = this;
     return new Promise(function(resolve, reject) {
       function getPlaylist(pageToken) {
-        console.warn(self.options.apiKey);
         youtube.playlistItems.list({
           key: self.options.apiKey,
           part: 'id,snippet',
@@ -33,13 +32,22 @@ class Service {
             if (results.nextPageToken) {
               getPlaylist(results.nextPageToken);
             } else {
-              const samples = _.sampleSize(videos, params.maxResults);
-              const results = _.map(samples, sample => {
+              let returnList = _.map(videos, sample => {
                 return {videoId: sample.snippet.resourceId.videoId, title: sample.snippet.title};
               });
+
+              returnList = _.sortBy(returnList, videoItem => {
+                let matched_title_num = videoItem.title.match(/^([0-9]+)/g)[0];
+                if (!matched_title_num) {
+                  console.error(`title ${videoItem.title} does not start with a number`);
+                  return reject(new Error('title ${videoItem.title} does not start with a number`'));
+                }
+                return Number(matched_title_num);
+              });
+
               resolve({
                 id, 
-                results: results,
+                results: returnList,
               });
             }
           }
