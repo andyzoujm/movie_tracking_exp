@@ -59,7 +59,7 @@ if (Project_version === 'control'){
 const throttleTime = 0.2; //in seconds
 var waitSeconds = 300; //instruction waiting time (in seconds)
 const debugMode = 0;
-const TimeStillLimit = 15;
+const TimeStillLimit = 20;
 
 // instructions
 // URL
