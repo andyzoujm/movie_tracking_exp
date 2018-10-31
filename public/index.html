@@ -49,6 +49,18 @@
         margin-bottom: 5px;
         overflow: hidden;
       }
+      
+      #emotionSpaceImage{
+        /*height: 200px;*/
+        /*height:70%;*/
+        position: absolute;
+        z-index: 1;
+        height: 500px;
+        margin-top: 5px;
+        margin-left: 5px;
+        margin-bottom: 5px;
+        overflow: hidden;
+      }
       .spaceText{
         font-size: 12pt;
       }
@@ -91,7 +103,8 @@
         </div>
         <div class='row bottom-buffer col-md-9'>
           <center><h3><u><b>Consent Form</b></u></h3></center>
-          <iframe frameborder="1" id="consentForm" src="https://docs.google.com/document/d/e/2PACX-1vRy5jLV0SIyMFxu5C5GSIUjZhOhkTer82HvIdnUOLb4RcHQA-abD3N-RI5vEv0kcaMJOPS0frWMJuGN/pub?embedded=true"></iframe>
+          <iframe frameborder="1" id="consentForm" src="https://docs.google.com/document/d/e/2PACX-1vSuQ2s93qu0sH_HV66kytWfnr6_GCLcSjDz66b0GMOXsxVKvecZ_SvNaDtpOJF3SfcORUWAJ0UCOa-3/pub?embedded=true"></iframe>
+          <!--src="https://docs.google.com/document/d/e/2PACX-1vRy5jLV0SIyMFxu5C5GSIUjZhOhkTer82HvIdnUOLb4RcHQA-abD3N-RI5vEv0kcaMJOPS0frWMJuGN/pub?embedded=true"-->
         </div>
       </div>
 
@@ -180,15 +193,16 @@
          <!--  <div id = 'LoadingVideo'>
             <p class="spaceText"> The video is loading. Please wait a few seconds.</p>
           </div> -->
+          <div id='MovieInstruction' hidden>
+            <p class="spaceText"> Please track the affective value/emotion <u><b>CLOSELY</b></u> and move the mouse <u><b>CONTINUOUSLY</b></u> </p>
+          </div>
           <div id='VideoReady'>
-            <p class="spaceText"> Please move the mouse pointer at the central cross and press <b>ENTER</b> key to start. The video won't start until the mouse pointer is centered.</p>
+            <p class="spaceText"> Move the mouse pointer to the central cross of the video and press <b>ENTER</b> key to start. </p>
           </div>
           <div id='VideoStart' hidden>
             <p class="spaceText"> The video has paused. Put the mouse point at the center cross and then press the <u><b>ENTER</b></u> key to start</p>
           </div>
-          <div id='MovieInstruction' hidden>
-            <p class="spaceText"> Please track the affective value/emotion <u><b>CLOSELY</b></u> and move the mouse <u><b>CONTINUOUSLY</b></u> </p>
-          </div>
+          
       </div>
         <div id='videoContainer' class='col-xs-8'>
           <p> <b>IMPORTANT</b>: This text must be visible; please avoid scrolling down because it will interfere with data recording; adjust the browser size so that this window fills the screen; the entire video frame should be visible.</p>
@@ -239,10 +253,29 @@
           <button id="submitTrial" type="button" class="btn btn-lg btn-primary">Next trial</button>
         </div>
 
+
+      <div id="emotionSpace" class="page container">
+        <div class='col-xs-3'>
+          <h3>Before you start:</h3>
+          <p class="spaceText"> Please be familiar with the valence and arousal space on the right before you proceed.</p>
+          <br/>
+          <p class="spaceText"> You will rate the emotion in two dimensions: Valence refers to how positive or negative a person is, and arousal reflects whether a person is exciting/agitating or calming/soothing. Example words with their locations are shown, indicating their approximate ratings. </p>
+          <br/>
+          <p class="spaceText"> Click the button to start a trial. </p>
+          <br/>
+          <button id="startTrial" type="button" class="btn btn-lg btn-primary">Start new trial</button>
+        </div>
+
+        <div id='videoContainer' class='col-xs-9'>
+            <img id = 'emotionSpaceImage' src='img/Valence_arousal_1.jpg'/>
+        </div>
+      </div>
+
       <div id="EndingExp" class="page container">
         <h3><u>You have finished the experiment!</u></h3>
         <p class="spaceText"> Thank you so much!</p>
         <p class="spaceText"> Please send an email to <b>chenzhimin@berkeley.edu</b> with a title <u><b>'Completed Tracking Experiment'</b></u>. We will verify your progress and the time you spent, and assign you credits in 1-2 days. If you encountered any problem or have any suggestion, also feel free to contact the researcher. We appreciate your feedback!</p>
+        <p class="spaceText"> If you like our experiment, please recommend it to your classmates and friends. We do need a lot of participants. Thank you!!!</p> 
         <p class="spaceText"> You can close the web page now.</p> 
       </div>
 

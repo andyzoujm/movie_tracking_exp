@@ -12,37 +12,57 @@ const playlist = app.service('/playlist');
 const db = app.service('/mongo');
 
 // 0 is scene rating project; 1 is emotion category project
-const Project_version = 'control';  // ‘scene or category or control’
-const experimentTime = 90 ;
-// const personOrContext = Math.round(Math.random()*2); // randome number of 0 or 1 or 2
-const personOrContext = 2;
-const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 1 ? 'characterOnly' : 'contextOnly';
-// 0: baseline
-// 2: contextOnly
-// 1: characterOnly
+const Project_version = 'continuous';  // ‘scene or category or control or retest’
+const experimentTime = 60;
 
-// about experiment version
-// const sceneOrPerson = 0;
-// const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
-const sceneOrPerson = Math.round(Math.random())+2; // randome number of 0 or 1
-const Experiment_type = sceneOrPerson === 2 ? 'baselineContinuous':'characterOnlyContinuous';
+
 //1: scene
 //0: person
 //2: baseline
 //3: characterOnly
+// const sceneOrPerson = 0;
+// const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
+// const sceneOrPerson = Math.round(Math.random()*1); // randome number of 0 or 1
+const sceneOrPerson = Math.round(Math.random()*1); ;
+const Experiment_type = sceneOrPerson === 0 ? 'baselineContinuous' : sceneOrPerson === 1 ? 'contextOnlyContinuous' : 'characterOnlyContinuous';
+
+
+
+// 0: baseline
+// 2: contextOnly
+// 1: characterOnly
+// const personOrContext = Math.round(Math.random()*1); // randome number of 0 or 1 or 2
+const personOrContext = 2;
+const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 1 ? 'contextOnly' : 'characterOnly';
+
 
 const valence_direction = Math.round(Math.random()); 
 // const valence_direction = 1; //positive on the left and negative on the right
 // const valence_direction = 1; //positive on the right and negative on the left
 
-const PRACTICE_TRIAL = 2;
-const MAX_TRIALS = 19;
+var PRACTICE_TRIAL;
+var MAX_TRIALS;
+
+if (Project_version === 'control'){
+  PRACTICE_TRIAL = 2;
+}
+else{
+  PRACTICE_TRIAL = 1;
+}
+
+if (Project_version === 'control'){
+  MAX_TRIALS = 19;
+}else{
+  MAX_TRIALS = 24;
+}
+
 const throttleTime = 0.2; //in seconds
 var waitSeconds = 300; //instruction waiting time (in seconds)
 const debugMode = 0;
 const TimeStillLimit = 15;
 
-// for loop does not work here
+// instructions
+// URL
 const sceneURL0 = 'https://docs.google.com/document/d/e/2PACX-1vRolz-hraYuU8ETW1ppMi9wmHUTNmks-fsViG0MNNf6XyD6_Ic5m5tBHLkFzafzVgGuoOxoCf-xibxl/pub?embedded=true';
 const personURL0 = 'https://docs.google.com/document/d/e/2PACX-1vRnbe3dDQnNJk0_FBl16QTGf9rhlKZNBy5BI61yTNmXBuFXav6z_L7S09Q-XI-khVx5V8P6As9HuMby/pub?embedded=true';
 const sceneURL1 = 'https://docs.google.com/document/d/e/2PACX-1vSQCOWig6ICKx_F_mUIgijyNIKPF6AvNa-Q8fpV0oHMYbh47-CROeqa4iScn0dcdJ3YWrTsRE7k1fra/pub?embedded=true';
@@ -52,12 +72,12 @@ const characterOnlyURL = 'https://docs.google.com/document/d/e/2PACX-1vRD2uhwCgQ
 const contextOnlyURL = 'https://docs.google.com/document/d/e/2PACX-1vS6_UDxx8uQWj6RguU11rlKMoPRzoHJ8LO9yON2PEWjbDHgMeCjcsY9LfNCNXC0_CvtcObR5sYMerZZ/pub?embedded=true';
 const controlURL0 = 'https://docs.google.com/document/d/e/2PACX-1vTdzE2-LOyjEyOZZf89hq5iLhkOrrwdwE16Z8ikB818eUCKv-0F9N6GDOxPJXpMoRPfSaWMeewpXU0E/pub?embedded=true';
 const controlURL1 = 'https://docs.google.com/document/d/e/2PACX-1vQQAOiuOACfwSlQgifFL385jW439z-XwOwJCN0n6xDPo3G4DSIyb9Ua3ZnlZAD1XOmyxMtFP28idAQ4/pub?embedded=true';
-
 const baselineContinuousURL0 = 'https://docs.google.com/document/d/e/2PACX-1vSUmp4-swAryAgOwKHcsK7IvVjW5BCFfkAHQFnXSVTY5-9taGo1_k5RnS3_Zqqb4sHsko62QRDQ7yCW/pub?embedded=true';
 const baselineContinuousURL1 = 'https://docs.google.com/document/d/e/2PACX-1vThKYBU0giYqQ1fqEcFw7nS_yiDDiuH3HKHTqqgoX8MbkD6c3XLgnwUET6We_skpBQLDCwEvaMwgDv7/pub?embedded=true';
 const characterOnlyContinuousURL0 = 'https://docs.google.com/document/d/e/2PACX-1vRHFOuRwliaCW6YLSs1agY5XVJfuAns6Zq8D5XHKtcM1mLLOw5H15KW1AY08OG-Xv24Xwt_nxBuaf78/pub?embedded=true';
 const characterOnlyContinuousURL1 = 'https://docs.google.com/document/d/e/2PACX-1vS8tMN6oEkQA8g5RtueuFiLBVqiQNHP21OcKMo1CVZoERpvvN0VXvOtAq3I1SmksNPczcBV11WCKxxu/pub?embedded=true';
 
+//Href
 const sceneHref0 = 'https://docs.google.com/document/d/1TlWZGEolJQQ-LqZJb_NXOk9dydJAtDSH_zAvKMSVtRI/edit?usp=sharing';
 const personHref0 = 'https://docs.google.com/document/d/1B86DZ3aon9Cw7EH6wOEYoz339kHx9f6iLfaHyHofWfo/edit?usp=sharing';
 const sceneHref1 = 'https://docs.google.com/document/d/1XykrTl18kxoyeSpqrEd-d08NTosX_0LFH7EweCaVp4A/edit?usp=sharing';
@@ -67,18 +87,18 @@ const characterOnlyHref = 'https://docs.google.com/document/d/1wIcl7PBkUP6fwXAhk
 const contextOnlyHref = 'https://docs.google.com/document/d/1yz1T0TjR86pT23g00mO_jwyvYGEIP93zGPCopnxorV4/edit?usp=sharing';
 const controlHref0 = 'https://docs.google.com/document/d/1qGA6b47xS6C0ZO9skOz84bSyYC5vU5JUXKuqE1Ja9Mk/edit?usp=sharing'
 const controlHref1 = 'https://docs.google.com/document/d/1mLogjwTwn9Rzix9RSkVlYUTTX9gVT9C3tim1t0B3SrY/edit?usp=sharing'
-
 const baselineContinuousHref0 = 'https://docs.google.com/document/d/16Pth2PquuHpKKdsaBUtWOoP7qVf5llWVGjUK5xNZbGs/edit?usp=sharing';
 const baselineContinuousHref1 = 'https://docs.google.com/document/d/1xsmIHw-FkXvIhOYUQ0uFJVXHsjDk3qCWpo-M2DRw0iE/edit?usp=sharing';
 const characterOnlyContinuousHref0 = 'https://docs.google.com/document/d/17O77cAPCcTlBO6GThWvmfPPScZTD8bOIiiZpxIdjwZg/edit?usp=sharing';
 const characterOnlyContinuousHref1 = 'https://docs.google.com/document/d/10yWdorBe7NgjmKKgSo-vwJWP-9i0gDYlSewy1fJ0RIw/edit?usp=sharing';
 
-const playlistContextOnly = 'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
-const playlistBaseline = 'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
-const playlistCharacterOnly = 'PLm09SE4GxfvVT0cWTj7m3_0wrgkHu7X7t';
+// playlist
+const playlistContextOnly = 'PLm09SE4GxfvWj9uQn8NiouW4uRHZ0ToJs'; //'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
+const playlistCharacterOnly = 'PLm09SE4GxfvXkeBNyd6HG_LxvN3mSgCpZ'; //'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
+const playlistBaseline = 'PLm09SE4GxfvXs_DtUWZKeHPYg1_rPUE-y';
 const playlistControl = 'PLm09SE4GxfvX--LAJf6-d1j64JP_n90GN';
 const playlistControlFull = 'PLm09SE4GxfvVKETEW1kZgMCpVhPotv_lY';
-const practiceContextOnly = 'nGRc-cD6tTw';
+const practiceContextOnly = 'agfaUcSffms'; //nGRc-cD6tTw
 const practiceBaseline = 'oBhS-2-utr4';
 const practiceCharacterOnly = 'fQG-vbx_V-g';
 const practiceControl = 'ZBJs6_6Z2z4'
@@ -173,6 +193,12 @@ $(document).ready(function() {
   registerHandlers();
   infoFormHandler();
   setupGridDimentional();
+  if (valence_direction == 0){
+    $('#emotionSpaceImage').attr('src','img/Valence_arousal_2.jpg');
+  }
+  else{
+    $('#emotionSpaceImage').attr('src','img/Valence_arousal_1.jpg');
+  }
 });
 
 function determineCondition(){
@@ -250,8 +276,51 @@ function determineCondition(){
       instructionURL = controlURL1;
       instructionHref = controlHref1;
     }
+  }else if (Project_version == 'retest'){
+    continuousOrCategory = 0;
+    playlistId =  playlistContextOnly;
+    practiceId = practiceContextOnly;
+    if (valence_direction == 0){
+      instructionURL = sceneURL0;
+      instructionHref = sceneHref0;
+    }else{
+      instructionURL = sceneURL1;
+      instructionHref = sceneHref1;
+    }
+  }else if (Project_version == 'continuous'){
+    continuousOrCategory = 0;
+    if (Experiment_type === 'contextOnlyContinuous'){
+      playlistId =  playlistContextOnly;
+      practiceId = practiceContextOnly;
+      if (valence_direction == 0){
+        instructionURL = personURL0;
+        instructionHref = personHref0;
+      }else{
+        instructionURL = personURL1;
+        instructionHref = personHref1;
+      }
+    }else if (Experiment_type === 'baselineContinuous') {
+      playlistId =  playlistBaseline;
+      practiceId = practiceBaseline;
+      if (valence_direction == 0){
+        instructionURL = baselineContinuousURL0;
+        instructionHref = baselineContinuousHref0;
+      }else{
+        instructionURL = baselineContinuousURL1;
+        instructionHref = baselineContinuousHref1;
+      }
+    }else if (Experiment_type === 'characterOnlyContinuous') {
+      playlistId =  playlistCharacterOnly;
+      practiceId = practiceCharacterOnly;
+      if (valence_direction == 0){
+        instructionURL = characterOnlyContinuousURL0;
+        instructionHref = characterOnlyContinuousHref0;
+      }else{
+        instructionURL = characterOnlyContinuousURL1;
+        instructionHref = characterOnlyContinuousHref1;
+      }
+    }
   }
-
 }
 
 // begin a trial
@@ -265,7 +334,7 @@ function beginTrial() {
     window.alert('Could not load video!');
     return;
   }
-  var videoNum = videoName.match(/\d+/);
+  var videoNum = videoName.slice(0,3);//videoName.match(/\d+/);
   var regex_occlusion = RegExp('occlusion');
   var regex_control = RegExp('control');
 
@@ -283,18 +352,30 @@ function beginTrial() {
       $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_baseline.png'); 
     }
   } else if (user.projectVersion === 'control'){
+
     $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png');
+
+  } else if (user.projectVersion === 'continuous'){
+
+    if (user.experimentType === 'contextOnlyContinuous'){
+      $('#imageTrack').attr('src','img/'+ videoNum + '_blurred.png'); 
+    }else{
+      $('#imageTrack').attr('src','img/'+ videoNum + '.png'); 
+    }
+
   }
   trialStart = Date.now(); //get start time of the trial
   showPage(4);
-  if (user.projectVersion === 'scene'){
+  if (user.projectVersion === 'scene' || user.projectVersion === 'continuous'){
+    $('#VideoReady').show();
+    $('#MovieInstruction').show();
     if (user.experimentType === 'scene'){
       $('#InstructionPerson').hide();
       $('#InstructionBaseline').hide();
       $('#InstructionCharacterOnly').hide();
       $('#InstructionScene').show();
       $('#imageTrack').hide();
-    }else if (user.experimentType === 'person'){
+    }else if (user.experimentType === 'person' || user.experimentType === 'contextOnlyContinuous'){
       $('#InstructionPerson').show();
       $('#InstructionBaseline').hide();
       $('#InstructionCharacterOnly').hide();
@@ -347,7 +428,14 @@ function beginTrial() {
     $('#InstructionCharacterOnly').hide();
     $('#InstructionScene').hide();
     $('#imageTrack').show();
-
+  }else if(user.projectVersion === 'control'){
+    $('#InstructionPerson').show();
+    $('#InstructionBaseline').hide();
+    $('#InstructionCharacterOnly').hide();
+    $('#InstructionControl').hide();
+    $('#InstructionScene').hide();
+    $('#imageTrack').show();
+    $('#characterInvisible').show();
   }
   setupGridDimentional();
   player.load(videoId,0);
@@ -365,9 +453,9 @@ function submitTrial(){
   trialEntries = [];
   $('#surveyForm')[0].reset();
   if (user.currentTrial === MAX_TRIALS) {
-    showPage(6);
+    showPage(7);
   } else {
-    beginTrial();
+    showPage(6);
   }
 }
 
@@ -376,6 +464,7 @@ function submitTrial(){
 function registerHandlers() {
   // $('#submitTrial').click(submitTrial);
   $('#beginTrial').click(beginTrial);
+  $('#startTrial').click(beginTrial);
 }
 
 function infoFormHandler() {
@@ -405,6 +494,7 @@ function combinePlaylist(id_1, id_2, params, numResults){
 // set up player functions 
 function getPlaylist(id, params) {
   return playlist.get(id, params).then(function(message) {
+    message.results = _.shuffle(message.results);
     console.log(message);
     return message;
   }).catch(function(err) {
@@ -764,18 +854,19 @@ function createUser() {
   }
   user._id = user.info.email;
 
-  // getPlaylist(user.playlistId, {
-  //   query: {
-  //     maxResults: MAX_TRIALS-1,
-  //   }
-  // })
-  combinePlaylist(user.playlistId, user.playlistId2, {}, MAX_TRIALS - PRACTICE_TRIAL).then(message => {
+
+  // combinePlaylist(user.playlistId, user.playlistId2, {}, MAX_TRIALS - PRACTICE_TRIAL).then(message => {
+  getPlaylist(user.playlistId, {
+    query: {
+      maxResults: MAX_TRIALS-PRACTICE_TRIAL,
+    }
+  }).then(message => {
     console.log(message);
     if (user.projectVersion == 'control'){
       user.trialVideos.push({videoId:user.practiceId2, title:'0_occlusion'});
       user.trialVideos.push({videoId:user.practiceId, title:'0_control'});
     }else{
-      user.trialVideos.push({videoId:user.practiceId, title:'0_occlusion'});
+      user.trialVideos.push({videoId:user.practiceId, title:'000_occlusion'});
     }
     Array.prototype.push.apply(user.trialVideos, message.results);
 
