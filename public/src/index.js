@@ -23,7 +23,7 @@ const experimentTime = 60;
 // const sceneOrPerson = 0;
 // const Experiment_type = sceneOrPerson === 1 ? 'scene':'person';
 // const sceneOrPerson = Math.round(Math.random()*1); // randome number of 0 or 1
-const sceneOrPerson = 2; //Math.floor(Math.random()*2)+1;
+const sceneOrPerson = 1; //Math.floor(Math.random()*2)+1;
 const Experiment_type = sceneOrPerson === 0 ? 'baselineContinuous' : sceneOrPerson === 1 ? 'contextOnlyContinuous' : 'characterOnlyContinuous';
 
 
