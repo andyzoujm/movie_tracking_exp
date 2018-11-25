@@ -16,7 +16,7 @@ const Project_version = 'continuous';  // scene or category or control
 
 // For Project_version = 'continuous', use sceneOrPerson and Experiment_type
 // baselineContinuous (sceneOrPerson = 0); contextOnlyContinuous(sceneOrPerson = 1); characterOnlyContinuous(sceneOrPerson =2)
-const sceneOrPerson = Math.floor(Math.random()*2)+1;
+const sceneOrPerson = 0; //Math.floor(Math.random()*2)+1;
 const Experiment_type = sceneOrPerson === 0 ? 'baselineContinuous' : sceneOrPerson === 1 ? 'contextOnlyContinuous' : 'characterOnlyContinuous';
 
 // // For Project_version = 'scene', use sceneOrPerson and Experiment_type
@@ -32,7 +32,7 @@ const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 
 
 // // For Project_version = 'control' or 'retest', don't need to set any parameter.
 
-const experimentTime = 60; // how long the experiment will last (in minutes)
+const experimentTime = 80; // how long the experiment will last (in minutes)
 
 // if 0 then negative on the right and positive on the left
 // if 1 then negative on the left and positive on the right
@@ -56,8 +56,8 @@ if (Project_version === 'control'){
 }
 
 const throttleTime = 0.1; // how much time to throttle in seconds
-var waitSeconds = 300; //instruction waiting time (in seconds)
-const debugMode = 0; // if 1 then allow skipping trials
+var waitSeconds = 10; //instruction waiting time (in seconds)
+const debugMode = 1; // if 1 then allow skipping trials
 const TimeStillLimit = 20; //
 
 // instructions URL
@@ -93,7 +93,7 @@ const characterOnlyContinuousHref1 = 'https://docs.google.com/document/d/10yWdor
 // playlist
 const playlistContextOnly = 'PLm09SE4GxfvWj9uQn8NiouW4uRHZ0ToJs'; //'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
 const playlistCharacterOnly = 'PLm09SE4GxfvXkeBNyd6HG_LxvN3mSgCpZ'; //'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
-const playlistBaseline = 'PLm09SE4GxfvXs_DtUWZKeHPYg1_rPUE-y';
+const playlistBaseline = 'PLm09SE4GxfvUEwc7TL-CQZx-lQs09R-IX';
 const playlistControl = 'PLm09SE4GxfvX--LAJf6-d1j64JP_n90GN';
 const playlistControlFull = 'PLm09SE4GxfvVKETEW1kZgMCpVhPotv_lY';
 const practiceContextOnly = 'agfaUcSffms'; 
