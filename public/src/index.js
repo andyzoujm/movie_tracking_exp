@@ -52,12 +52,12 @@ var MAX_TRIALS;
 if (Project_version === 'control'){
   MAX_TRIALS = 19;
 }else{
-  MAX_TRIALS = 24;
+  MAX_TRIALS = 51;
 }
 
 const throttleTime = 0.1; // how much time to throttle in seconds
-var waitSeconds = 10; //instruction waiting time (in seconds)
-const debugMode = 1; // if 1 then allow skipping trials
+var waitSeconds = 300; //instruction waiting time (in seconds)
+const debugMode = 0; // if 1 then allow skipping trials
 const TimeStillLimit = 20; //
 
 // instructions URL
