@@ -18142,6 +18142,13 @@ function beginTrial() {
   var regex_occlusion = RegExp('occlusion');
   var regex_control = RegExp('control');
 
+  if (user.valenceDirection === 0){
+    $('#emotionSpaceImage').attr('src','img/Valence_arousal_2.jpg');
+  }
+  else{
+    $('#emotionSpaceImage').attr('src','img/Valence_arousal_1.jpg');
+  }
+
   // change instruction picture to show which character to track
   if (user.projectVersion === 'scene'){
     if (user.experimentType === 'scene' || user.experimentType === 'person'){
