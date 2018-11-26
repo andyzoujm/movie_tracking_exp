@@ -17853,7 +17853,7 @@ var MAX_TRIALS;
 if (Project_version === 'control'){
   MAX_TRIALS = 19;
 }else{
-  MAX_TRIALS = 51;
+  MAX_TRIALS = 50;
 }
 
 const throttleTime = 0.1; // how much time to throttle in seconds
