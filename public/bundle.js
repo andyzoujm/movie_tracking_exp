@@ -17997,6 +17997,12 @@ $(document).ready(function() {
 });
 
 function determineCondition(){
+  if (valence_direction === 0){
+    $('#emotionSpaceImage').attr('src','img/Valence_arousal_2.jpg');
+  }
+  else{
+    $('#emotionSpaceImage').attr('src','img/Valence_arousal_1.jpg');
+  }
   if (Project_version === 'scene'){
     continuousOrCategory = 0; 
     // show valence&arousal rating grid or category circles 
@@ -18005,7 +18011,7 @@ function determineCondition(){
       playlistId =  playlistContextOnly;
       practiceId = practiceContextOnly;
       // instruction sites
-      if (valence_direction == 0){
+      if (valence_direction === 0){
         instructionURL = sceneURL0;
         instructionHref = sceneHref0;
       }else{
