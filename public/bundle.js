@@ -17988,7 +17988,7 @@ $(document).ready(function() {
   registerHandlers();
   infoFormHandler();
   setupGridDimentional();
-  if (valence_direction == 0){
+  if (valence_direction === 0){
     $('#emotionSpaceImage').attr('src','img/Valence_arousal_2.jpg');
   }
   else{
