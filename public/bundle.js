@@ -17893,7 +17893,7 @@ const characterOnlyContinuousHref1 = 'https://docs.google.com/document/d/10yWdor
 
 // playlist
 const playlistContextOnly = 'PLm09SE4GxfvXFoOYJ2xf_k9Il_9cAEib7'; //'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
-const playlistCharacterOnly = 'PLm09SE4GxfvXkeBNyd6HG_LxvN3mSgCpZ'; //'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
+const playlistCharacterOnly = 'PLm09SE4GxfvVL5GFUeXT8gUolfclrP7cR'; //'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
 const playlistBaseline = 'PLm09SE4GxfvUEwc7TL-CQZx-lQs09R-IX';
 const playlistControl = 'PLm09SE4GxfvX--LAJf6-d1j64JP_n90GN';
 const playlistControlFull = 'PLm09SE4GxfvVKETEW1kZgMCpVhPotv_lY';
