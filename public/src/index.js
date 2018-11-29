@@ -16,7 +16,7 @@ const Project_version = 'continuous';  // scene or category or control
 
 // For Project_version = 'continuous', use sceneOrPerson and Experiment_type
 // baselineContinuous (sceneOrPerson = 0); contextOnlyContinuous(sceneOrPerson = 1); characterOnlyContinuous(sceneOrPerson =2)
-const sceneOrPerson = 1; //Math.floor(Math.random()*2)+1;
+const sceneOrPerson = 2; //Math.floor(Math.random()*2)+1;
 const Experiment_type = sceneOrPerson === 0 ? 'baselineContinuous' : sceneOrPerson === 1 ? 'contextOnlyContinuous' : 'characterOnlyContinuous';
 
 // // For Project_version = 'scene', use sceneOrPerson and Experiment_type
