@@ -17817,23 +17817,23 @@ const Project_version = 'continuous';  // scene or category or control
 
 // For Project_version = 'continuous', use sceneOrPerson and Experiment_type
 // baselineContinuous (sceneOrPerson = 0); contextOnlyContinuous(sceneOrPerson = 1); characterOnlyContinuous(sceneOrPerson =2)
-const sceneOrPerson = 2; //Math.floor(Math.random()*2)+1;
+const sceneOrPerson = Math.floor(Math.random()*3);
 const Experiment_type = sceneOrPerson === 0 ? 'baselineContinuous' : sceneOrPerson === 1 ? 'contextOnlyContinuous' : 'characterOnlyContinuous';
 
 // // For Project_version = 'scene', use sceneOrPerson and Experiment_type
 // // track the scene (sceneOrPerson = 0); track the invisible person (sceneOrPerson = 1)
 // // baselineContinuous (sceneOrPerson = 2); characterOnlyContinuous (sceneOrPerson = 3); 
-// const sceneOrPerson = Math.floor(Math.random()*3)+1;
+// const sceneOrPerson = Math.floor(Math.random()*3)+1f;
 // const Experiment_type = sceneOrPerson === 0 ? 'scene' : sceneOrPerson === 1 ? 'person' : sceneOrPerson === 2 ?'baselineContinuous':'characterOnlyContinuous'
 
 // // For Project_version = 'category', use personOrContext and Condition_type
 // // baselineContinuous (sceneOrPerson = 0), contextOnlyContinuous(sceneOrPerson = 1), characterOnlyContinuous(sceneOrPerson =2)
-const personOrContext = Math.floor(Math.random()*2)+1;
+const personOrContext = Math.floor(Math.random()*3);
 const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 1 ? 'contextOnly' : 'characterOnly';
 
 // // For Project_version = 'control' or 'retest', don't need to set any parameter.
 
-const experimentTime = 90; // how long the experiment will last (in minutes)
+const experimentTime = 60; // how long the experiment will last (in minutes)
 
 // if 0 then negative on the right and positive on the left
 // if 1 then negative on the left and positive on the right
@@ -17853,7 +17853,7 @@ var MAX_TRIALS;
 if (Project_version === 'control'){
   MAX_TRIALS = 19;
 }else{
-  MAX_TRIALS = 50;
+  MAX_TRIALS = 22;
 }
 
 const throttleTime = 0.1; // how much time to throttle in seconds
@@ -17892,9 +17892,9 @@ const characterOnlyContinuousHref0 = 'https://docs.google.com/document/d/17O77cA
 const characterOnlyContinuousHref1 = 'https://docs.google.com/document/d/10yWdorBe7NgjmKKgSo-vwJWP-9i0gDYlSewy1fJ0RIw/edit?usp=sharing';
 
 // playlist
-const playlistContextOnly = 'PLm09SE4GxfvXFoOYJ2xf_k9Il_9cAEib7'; //'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
-const playlistCharacterOnly = 'PLm09SE4GxfvVL5GFUeXT8gUolfclrP7cR'; //'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
-const playlistBaseline = 'PLm09SE4GxfvUEwc7TL-CQZx-lQs09R-IX';
+const playlistContextOnly = 'PLm09SE4GxfvXQLy5si1sJB3d-k_P0PfI6'; //'PLm09SE4GxfvXFoOYJ2xf_k9Il_9cAEib7'; //'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
+const playlistCharacterOnly = 'PLm09SE4GxfvW1S28rUkFXVjZt81ur8Pmh'; //'PLm09SE4GxfvVL5GFUeXT8gUolfclrP7cR'; //'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
+const playlistBaseline = 'PLm09SE4GxfvV-6GJHQe_dGvBN3B0Y09L1';//'PLm09SE4GxfvUEwc7TL-CQZx-lQs09R-IX';
 const playlistControl = 'PLm09SE4GxfvX--LAJf6-d1j64JP_n90GN';
 const playlistControlFull = 'PLm09SE4GxfvVKETEW1kZgMCpVhPotv_lY';
 const practiceContextOnly = 'agfaUcSffms'; 
