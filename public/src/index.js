@@ -12,7 +12,7 @@ const playlist = app.service('/playlist');
 const db = app.service('/mongo');
 
 // 0 is scene rating project; 1 is emotion category project
-const Project_version = 'continuous';  // scene or category or control
+const Project_version = 'category';  // scene or category or control
 
 // For Project_version = 'continuous', use sceneOrPerson and Experiment_type
 // baselineContinuous (sceneOrPerson = 0); contextOnlyContinuous(sceneOrPerson = 1); characterOnlyContinuous(sceneOrPerson =2)
@@ -37,7 +37,8 @@ const experimentTime = 60; // how long the experiment will last (in minutes)
 // if 0 then negative on the right and positive on the left
 // if 1 then negative on the left and positive on the right
 const valence_direction = Math.round(Math.random()); 
-
+const categoryOrder_v = Math.round(Math.random());
+const categoryOrder_a = Math.round(Math.random());
 //the  number of practice trials
 var PRACTICE_TRIAL;
 if (Project_version === 'control'){
@@ -52,12 +53,12 @@ var MAX_TRIALS;
 if (Project_version === 'control'){
   MAX_TRIALS = 19;
 }else{
-  MAX_TRIALS = 22;
+  MAX_TRIALS = 35;
 }
 
 const throttleTime = 0.1; // how much time to throttle in seconds
-var waitSeconds = 300; //instruction waiting time (in seconds)
-const debugMode = 0; // if 1 then allow skipping trials
+var waitSeconds = 0; //instruction waiting time (in seconds)
+const debugMode = 1; // if 1 then allow skipping trials
 const TimeStillLimit = 20; //
 
 // instructions URL
@@ -91,9 +92,9 @@ const characterOnlyContinuousHref0 = 'https://docs.google.com/document/d/17O77cA
 const characterOnlyContinuousHref1 = 'https://docs.google.com/document/d/10yWdorBe7NgjmKKgSo-vwJWP-9i0gDYlSewy1fJ0RIw/edit?usp=sharing';
 
 // playlist
-const playlistContextOnly = 'PLm09SE4GxfvXQLy5si1sJB3d-k_P0PfI6'; //'PLm09SE4GxfvXFoOYJ2xf_k9Il_9cAEib7'; //'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
-const playlistCharacterOnly = 'PLm09SE4GxfvW1S28rUkFXVjZt81ur8Pmh'; //'PLm09SE4GxfvVL5GFUeXT8gUolfclrP7cR'; //'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
-const playlistBaseline = 'PLm09SE4GxfvV-6GJHQe_dGvBN3B0Y09L1';//'PLm09SE4GxfvUEwc7TL-CQZx-lQs09R-IX';
+const playlistContextOnly = 'PLm09SE4GxfvVDMELnTEi2MMGYWJe9jG6o'; //'PLm09SE4GxfvXFoOYJ2xf_k9Il_9cAEib7'; //'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
+const playlistCharacterOnly = 'PLm09SE4GxfvU3-9RrVKYRFxxzdQpPwzAX'; //'PLm09SE4GxfvVL5GFUeXT8gUolfclrP7cR'; //'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
+const playlistBaseline = 'PLm09SE4GxfvUg8taO76eYFiYDCx-nD_m6';//'PLm09SE4GxfvUEwc7TL-CQZx-lQs09R-IX';
 const playlistControl = 'PLm09SE4GxfvX--LAJf6-d1j64JP_n90GN';
 const playlistControlFull = 'PLm09SE4GxfvVKETEW1kZgMCpVhPotv_lY';
 const practiceContextOnly = 'agfaUcSffms'; 
@@ -109,15 +110,20 @@ var instructionURL;
 var instructionHref;
 var continuousOrCategory;
 
-const wedgesAngle = [-30,-90,-150,30,90,150];
-const categoriesAngle = [0,-60,-120,180,120,60];
+var wedgesAngle = [[-18,-54,-90],[-126,-162,162],[126,90],[54,18]];
+var categoriesAngle = [[0,-36,-72],[-108, -144,-180],[144,108], [72,36]];
+var categoryLabels = [['Surprised','Happy','Excited'],['Fearful', 'Angry','Disgusted'],
+['Sad','Bored'], ['Calm','Contented']];
+var categoryNum = 10;
+// const categoryOrder = shuffle([0,1,2,3,4,5,6,7,8,9]); //emotion category labels
 const div_width = 800;
 const div_height = 570;
 var videoCanvas = document.getElementById('videoCanvas');
 videoCanvas.height = div_height;
 videoCanvas.width = div_width;
 const recHeight = 2/3*videoCanvas.height;
-const categoryRadius = recHeight/2*2/3;
+const categoryRadius = recHeight/2*3/4;
+const categoryRadius_neutral = categoryRadius/2
 const recWidth = recHeight;
 const topLeftX = (videoCanvas.width-recWidth)/2;
 const topLeftY = (videoCanvas.height-recHeight)/2;
@@ -130,12 +136,12 @@ var valenceRating;
 var arousalRating;
 var emotionLabel;
 var emotionStrength;
-
+var emotionAngles_corrected = categoriesAngle;
 let trialStart = 0;// Trial start time
 let trialEntries = [];
 var randFeedback = 1;
 var longestTimeStill = 0;
-
+const innerCircleRadius = recHeight/2/3;
 
 function shuffle(a) {
     var j, x, i;
@@ -147,9 +153,6 @@ function shuffle(a) {
     }
     return a;
 }
-
-const categoryOrder = shuffle([0,1,2,3,4,5]); //emotion category labels
-const categoryLabels = ['Anger','Disgust','Fear','Happiness','Sadness','Surprise'];
 
 determineCondition();
 var user = {
@@ -172,10 +175,12 @@ var user = {
   practiceId2:practiceId2,
   instructionURL:instructionURL,
   instructionHref:instructionHref,
-  categoryOrder: categoryOrder,
+  categoryOrder_a: categoryOrder_a,
+  categoryOrder_v: categoryOrder_v,
   categoryLabels:categoryLabels,
   wedgesAngle:wedgesAngle,
   categoriesAngle:categoriesAngle,
+  emotionAngles_corrected:emotionAngles_corrected,
 };
 let videoCtx;// Canvas context
 
@@ -341,6 +346,23 @@ function beginTrial() {
   var regex_occlusion = RegExp('occlusion');
   var regex_control = RegExp('control');
 
+  for (i=0;i<user.categoryLabels.length;i++){
+    for (j=0;j<user.categoryLabels[i].length;j++){
+      var anglesToDraw = user.categoriesAngle[i][j];
+      if (user.categoryOrder_a == 1){
+        anglesToDraw = -anglesToDraw;
+      }
+      if (categoryOrder_v == 1){
+        if (anglesToDraw<=0){
+          anglesToDraw = anglesToDraw - 2*(anglesToDraw + 90);
+        }else{
+          anglesToDraw = anglesToDraw + 2*(90 - anglesToDraw);
+        }
+      }
+      user.emotionAngles_corrected[i][j] = anglesToDraw;
+    }
+  }
+
   if (user.valenceDirection === 0){
     $('#emotionSpaceImage').attr('src','img/Valence_arousal_2.jpg');
   }
@@ -465,8 +487,10 @@ function submitTrial(){
   $('#surveyForm')[0].reset();
   if (user.currentTrial === MAX_TRIALS) {
     showPage(7);
+    // showPage(6);
   } else {
     showPage(6);
+    // showPage(4);
   }
 }
 
@@ -592,29 +616,43 @@ function mouseMoveHandler(event) {
       var distanceFromCenterX = mouse_posX_save - canvasRect.left - videoCanvas.width/2;
       var distanceFromCenterY = mouse_posY_save - canvasRect.top - videoCanvas.height/2;
       var distanceFromCenter = Math.pow(Math.pow(distanceFromCenterX,2) + Math.pow(distanceFromCenterY,2),0.5);
-      emotionStrength = distanceFromCenter/recHeight*2;
-      var angleFromZero = Math.acos(distanceFromCenterX/distanceFromCenter)*180/Math.PI;
-      if (distanceFromCenterY <=0){
-        if (angleFromZero<= 30){
-          emotionLabel = user.categoryLabels[user.categoryOrder[0]];
-        }else if (angleFromZero>30 && angleFromZero<= 90){
-          emotionLabel = user.categoryLabels[user.categoryOrder[1]];
-        }else if (angleFromZero>90 && angleFromZero<= 150){
-          emotionLabel = user.categoryLabels[user.categoryOrder[2]];
-        }else if (angleFromZero>150 && angleFromZero<= 180){
-          emotionLabel = user.categoryLabels[user.categoryOrder[3]];
-        }
-      }else{
-        if (angleFromZero<= 30){
-          emotionLabel = user.categoryLabels[user.categoryOrder[0]];
-        }else if (angleFromZero>30 && angleFromZero<= 90){
-          emotionLabel = user.categoryLabels[user.categoryOrder[5]];
-        }else if (angleFromZero>90 && angleFromZero<= 150){
-          emotionLabel = user.categoryLabels[user.categoryOrder[4]];
-        }else if (angleFromZero>150 && angleFromZero<= 180){
-          emotionLabel = user.categoryLabels[user.categoryOrder[3]];
+      // emotionStrength = distanceFromCenter/recHeight*2;
+      var angleFromZero_sin = Math.asin(distanceFromCenterY/distanceFromCenter)*180/Math.PI;
+      var angleFromZero_cos = Math.acos(distanceFromCenterX/distanceFromCenter)*180/Math.PI;
+      var angleFromZero = Math.sign(angleFromZero_sin)*angleFromZero_cos;
+      for (i=0;i<user.categoryLabels.length;i++){
+        for (j=0;j<user.categoryLabels[i].length;j++){
+          if (distanceFromCenter <= innerCircleRadius){
+            emotionLabel = 'Neutral';
+          }else{
+            if (Math.abs(angleFromZero - user.emotionAngles_corrected[i][j]) <= 18){
+              emotionLabel = user.categoryLabels[i][j];
+            }
+          }
         }
       }
+
+      // if (distanceFromCenterY <=0){
+      //   if (angleFromZero<= 30){
+      //     emotionLabel = user.categoryLabels[user.categoryOrder[0]];
+      //   }else if (angleFromZero>30 && angleFromZero<= 90){
+      //     emotionLabel = user.categoryLabels[user.categoryOrder[1]];
+      //   }else if (angleFromZero>90 && angleFromZero<= 150){
+      //     emotionLabel = user.categoryLabels[user.categoryOrder[2]];
+      //   }else if (angleFromZero>150 && angleFromZero<= 180){
+      //     emotionLabel = user.categoryLabels[user.categoryOrder[3]];
+      //   }
+      // }else{
+      //   if (angleFromZero<= 30){
+      //     emotionLabel = user.categoryLabels[user.categoryOrder[0]];
+      //   }else if (angleFromZero>30 && angleFromZero<= 90){
+      //     emotionLabel = user.categoryLabels[user.categoryOrder[5]];
+      //   }else if (angleFromZero>90 && angleFromZero<= 150){
+      //     emotionLabel = user.categoryLabels[user.categoryOrder[4]];
+      //   }else if (angleFromZero>150 && angleFromZero<= 180){
+      //     emotionLabel = user.categoryLabels[user.categoryOrder[3]];
+      //   }
+      // }
     }
     var lastEntry = _.last(trialEntries);
     if (lastEntry) {
@@ -629,8 +667,9 @@ function mouseMoveHandler(event) {
       arousalRating = Math.round(arousalRating*1000)/1000;
       trialEntries.push({valenceRating,arousalRating,mouse_time_save,mouse_posX_save,mouse_posY_save});
     }else if (user.continuousOrCategory === 1){
-      emotionStrength = Math.round(emotionStrength*1000)/1000;
-      trialEntries.push({emotionLabel,emotionStrength,mouse_time_save,mouse_posX_save,mouse_posY_save});
+      // emotionStrength = Math.round(emotionStrength*1000)/1000;
+      // trialEntries.push({emotionLabel,emotionStrength,mouse_time_save,mouse_posX_save,mouse_posY_save});
+      trialEntries.push({emotionLabel,mouse_time_save,mouse_posX_save,mouse_posY_save});
     }
   } 
 };
@@ -682,17 +721,21 @@ document.addEventListener("mousemove", function(event){
       videoCtx.fillRect(mouse_posX-canvasRect.left-pointerSize/2, mouse_posY-canvasRect.top-pointerSize/2, pointerSize, pointerSize);
       videoCtx.stroke();
 
-      // drawing the horizontal dashed line
-      videoCtx.strokeStyle="black";
-      videoCtx.setLineDash([10, 10]);
-      videoCtx.beginPath();
-      videoCtx.moveTo(topLeftX+recWidth/2, topLeftY+recHeight/2);//moveTo(topLeftX, mouse_posY -canvasRect.top);
-      videoCtx.lineTo(mouse_posX-canvasRect.left, mouse_posY-canvasRect.top);
-      videoCtx.stroke();
+      // // drawing the horizontal dashed line
+      // videoCtx.strokeStyle="black";
+      // videoCtx.setLineDash([10, 10]);
+      // videoCtx.beginPath();
+      // videoCtx.moveTo(topLeftX+recWidth/2, topLeftY+recHeight/2);//moveTo(topLeftX, mouse_posY -canvasRect.top);
+      // videoCtx.lineTo(mouse_posX-canvasRect.left, mouse_posY-canvasRect.top);
+      // videoCtx.stroke();
 
-      if (emotionStrength){
+      // if (emotionStrength){
+      //   videoCtx.fillText('Emotion category: ' + emotionLabel, topLeftX+recWidth/2, topLeftY + shift_y_1);
+      //   videoCtx.fillText('Emotion strength: ' + String(Math.round(emotionStrength*100)) + '%', topLeftX+recWidth/2, topLeftY + shift_y_2);
+      // }
+
+      if(emotionLabel){
         videoCtx.fillText('Emotion category: ' + emotionLabel, topLeftX+recWidth/2, topLeftY + shift_y_1);
-        videoCtx.fillText('Emotion strength: ' + String(Math.round(emotionStrength*100)) + '%', topLeftX+recWidth/2, topLeftY + shift_y_2);
       }
 
     }else{
@@ -752,15 +795,16 @@ function setupGridDimentional() {
   gridCtx.strokeStyle="red";
   // drawing the center cross
   gridCtx.lineWidth="2";
-  gridCtx.beginPath();
-  gridCtx.moveTo(topLeftX+recWidth/2-crossLength/2, topLeftY+recHeight/2);
-  gridCtx.lineTo(topLeftX+recWidth/2+crossLength/2, topLeftY+recHeight/2);
-  gridCtx.stroke();
-  gridCtx.beginPath();
-  gridCtx.moveTo(topLeftX+recWidth/2, topLeftY+recHeight/2-crossLength/2);
-  gridCtx.lineTo(topLeftX+recWidth/2, topLeftY+recHeight/2+crossLength/2);
-  gridCtx.stroke();
-
+  if (user.continuousOrCategory === 0){
+    gridCtx.beginPath();
+    gridCtx.moveTo(topLeftX+recWidth/2-crossLength/2, topLeftY+recHeight/2);
+    gridCtx.lineTo(topLeftX+recWidth/2+crossLength/2, topLeftY+recHeight/2);
+    gridCtx.stroke();
+    gridCtx.beginPath();
+    gridCtx.moveTo(topLeftX+recWidth/2, topLeftY+recHeight/2-crossLength/2);
+    gridCtx.lineTo(topLeftX+recWidth/2, topLeftY+recHeight/2+crossLength/2);
+    gridCtx.stroke();
+  }
   gridCtx.lineWidth="1";
   if (user.continuousOrCategory === 0){
     drawGrid();
@@ -775,22 +819,32 @@ function setupGridDimentional() {
     gridCtx.arc(topLeftX+recWidth/2,topLeftY+recHeight/2,recHeight/2,0,2*Math.PI);
     gridCtx.stroke();
 
+    gridCtx.beginPath();
+    gridCtx.arc(topLeftX+recWidth/2,topLeftY+recHeight/2,innerCircleRadius,0,2*Math.PI);
+    gridCtx.stroke();
+
     // draw the wedges
-    for (i=0;i<6;i++){
-      gridCtx.beginPath();
-      gridCtx.moveTo(topLeftX+recWidth/2, topLeftY+recHeight/2); // center
-      gridCtx.lineTo(topLeftX+recWidth/2 + recHeight/2*Math.cos(user.wedgesAngle[i]/180*Math.PI), topLeftY+recHeight/2+recHeight/2*Math.sin(user.wedgesAngle[i]/180*Math.PI));
-      gridCtx.stroke();
+    for (i=0;i<user.categoryLabels.length;i++){
+      for (j=0;j<user.categoryLabels[i].length;j++){
+        gridCtx.beginPath();
+        gridCtx.moveTo(topLeftX+recWidth/2+ recHeight/2/3*Math.cos(user.wedgesAngle[i][j]/180*Math.PI), topLeftY+recHeight/2+recHeight/2/3*Math.sin(user.wedgesAngle[i][j]/180*Math.PI)); // center
+        gridCtx.lineTo(topLeftX+recWidth/2 + recHeight/2*Math.cos(user.wedgesAngle[i][j]/180*Math.PI), topLeftY+recHeight/2+recHeight/2*Math.sin(user.wedgesAngle[i][j]/180*Math.PI));
+        gridCtx.stroke();
+      }
     }
 
     //draw text for each wedges
     gridCtx.font = "14pt Arial";
     gridCtx.fillStyle = "red";
     gridCtx.textAlign="center";
-    for (j=0;j<6;j++){
-      gridCtx.fillText(user.categoryLabels[user.categoryOrder[j]],topLeftX+recWidth/2 + categoryRadius*Math.cos(user.categoriesAngle[j]/180*Math.PI), topLeftY+recHeight/2+categoryRadius*Math.sin(user.categoriesAngle[j]/180*Math.PI));
+
+    for (i=0;i<user.categoryLabels.length;i++){
+      for (j=0;j<user.categoryLabels[i].length;j++){
+        gridCtx.fillText(user.categoryLabels[i][j],topLeftX+recWidth/2 + categoryRadius*Math.cos(user.emotionAngles_corrected[i][j]/180*Math.PI), topLeftY+recHeight/2+categoryRadius*Math.sin(user.emotionAngles_corrected[i][j]/180*Math.PI));
+      }
     }
 
+    gridCtx.fillText('Neutral',topLeftX+recWidth/2, topLeftY+recHeight/2+6);
   }
 
   function drawGrid(){
