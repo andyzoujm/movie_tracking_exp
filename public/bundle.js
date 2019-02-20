@@ -17828,7 +17828,8 @@ const Experiment_type = sceneOrPerson === 0 ? 'baselineContinuous' : sceneOrPers
 
 // // For Project_version = 'category', use personOrContext and Condition_type
 // // baselineContinuous (sceneOrPerson = 0), contextOnlyContinuous(sceneOrPerson = 1), characterOnlyContinuous(sceneOrPerson =2)
-const personOrContext = Math.floor(Math.random()*3);
+// const personOrContext = Math.floor(Math.random()*3);
+const personOrContext = 1;
 const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 1 ? 'contextOnly' : 'characterOnly';
 
 // // For Project_version = 'control' or 'retest', don't need to set any parameter.
@@ -18180,9 +18181,11 @@ function beginTrial() {
     }
   }else if (user.projectVersion === 'category'){
     if (user.conditionType === 'contextOnly'){
-      $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png'); 
+      // $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_context.png'); 
+      $('#imageTrack').attr('src','img/'+ videoNum + '_blurred.png'); 
     }else{
-      $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_baseline.png'); 
+      // $('#imageTrack').attr('src','img/Exp2_'+ videoNum + '_baseline.png'); 
+      $('#imageTrack').attr('src','img/'+ videoNum + '.png'); 
     }
   } else if (user.projectVersion === 'control'){
 
