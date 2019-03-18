@@ -28,7 +28,7 @@ const Experiment_type = sceneOrPerson === 0 ? 'baselineContinuous' : sceneOrPers
 // // For Project_version = 'category', use personOrContext and Condition_type
 // // baselineContinuous (sceneOrPerson = 0), contextOnlyContinuous(sceneOrPerson = 1), characterOnlyContinuous(sceneOrPerson =2)
 // const personOrContext = Math.floor(Math.random()*3);
-const personOrContext = 1;
+const personOrContext = Math.floor(Math.random()*3);
 const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 1 ? 'contextOnly' : 'characterOnly';
 
 // // For Project_version = 'control' or 'retest', don't need to set any parameter.
@@ -54,12 +54,12 @@ var MAX_TRIALS;
 if (Project_version === 'control'){
   MAX_TRIALS = 19;
 }else{
-  MAX_TRIALS = 35;
+  MAX_TRIALS = 34;
 }
 
-const throttleTime = 0.1; // how much time to throttle in seconds
-var waitSeconds = 0; //instruction waiting time (in seconds)
-const debugMode = 1; // if 1 then allow skipping trials
+const throttleTime = 0.05; // how much time to throttle in seconds
+var waitSeconds = 300; //instruction waiting time (in seconds)
+const debugMode = 0; // if 1 then allow skipping trials
 const TimeStillLimit = 20; //
 
 // instructions URL
@@ -93,9 +93,9 @@ const characterOnlyContinuousHref0 = 'https://docs.google.com/document/d/17O77cA
 const characterOnlyContinuousHref1 = 'https://docs.google.com/document/d/10yWdorBe7NgjmKKgSo-vwJWP-9i0gDYlSewy1fJ0RIw/edit?usp=sharing';
 
 // playlist
-const playlistContextOnly = 'PLm09SE4GxfvVDMELnTEi2MMGYWJe9jG6o'; //'PLm09SE4GxfvXFoOYJ2xf_k9Il_9cAEib7'; //'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
-const playlistCharacterOnly = 'PLm09SE4GxfvU3-9RrVKYRFxxzdQpPwzAX'; //'PLm09SE4GxfvVL5GFUeXT8gUolfclrP7cR'; //'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
-const playlistBaseline = 'PLm09SE4GxfvUg8taO76eYFiYDCx-nD_m6';//'PLm09SE4GxfvUEwc7TL-CQZx-lQs09R-IX';
+const playlistContextOnly = 'PLm09SE4GxfvVyvce3fBD-Dyz1UicdKttM'; //'PLm09SE4GxfvXFoOYJ2xf_k9Il_9cAEib7'; //'PLm09SE4GxfvX_w6Kian4mlNiA4JR2Qu8Q';
+const playlistCharacterOnly = 'PLm09SE4GxfvWlaEEw_laBEzkxYZCN6Tkv'; //'PLm09SE4GxfvVL5GFUeXT8gUolfclrP7cR'; //'PLm09SE4GxfvX-pjLLzaLpgyOa57AL4fcI';
+const playlistBaseline = 'PLm09SE4GxfvVUv6DFUBqT-sMcLnviFIjV';//'PLm09SE4GxfvUEwc7TL-CQZx-lQs09R-IX';
 const playlistControl = 'PLm09SE4GxfvX--LAJf6-d1j64JP_n90GN';
 const playlistControlFull = 'PLm09SE4GxfvVKETEW1kZgMCpVhPotv_lY';
 const practiceContextOnly = 'agfaUcSffms'; 
@@ -370,7 +370,7 @@ function beginTrial() {
   else{
     $('#emotionSpaceImage').attr('src','img/Valence_arousal_1.jpg');
   }
-
+  emotionLabel = 'Neutral';
   // change instruction picture to show which character to track
   if (user.projectVersion === 'scene'){
     if (user.experimentType === 'scene' || user.experimentType === 'person'){
@@ -401,10 +401,10 @@ function beginTrial() {
   }
   trialStart = Date.now(); //get start time of the trial
   showPage(4);
+  $('#VideoReady').show();
+  $('#MovieInstruction').show();
   // determine what instructions to show
   if (user.projectVersion === 'scene' || user.projectVersion === 'continuous'){
-    $('#VideoReady').show();
-    $('#MovieInstruction').show();
     if (user.experimentType === 'scene'){
       $('#InstructionPerson').hide();
       $('#InstructionBaseline').hide();
@@ -966,13 +966,19 @@ function checkForm() {
   allPresent = allPresent.every(function (e) {
     return e;
   });
-  if (!allPresent) {
-    alert('Please Fill in All Fields');
-    return;
-  } else{
+  if (debugMode){
     user.survey.push(values);
     submitTrial();
+  }else{
+    if (!allPresent) {
+      alert('Please Fill in All Fields');
+      return;
+    } else{
+      user.survey.push(values);
+      submitTrial();
+    }
   }
+  
 }
 
 
