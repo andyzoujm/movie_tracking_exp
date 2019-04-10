@@ -19787,8 +19787,9 @@ const Experiment_type = sceneOrPerson === 0 ? 'baselineContinuous' : sceneOrPers
 // // For Project_version = 'category', use personOrContext and Condition_type
 // // baselineContinuous (sceneOrPerson = 0), contextOnlyContinuous(sceneOrPerson = 1), characterOnlyContinuous(sceneOrPerson =2)
 // const personOrContext = Math.floor(Math.random()*3);
-const personOrContext = Math.floor(Math.random()*3);
-const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 1 ? 'contextOnly' : 'characterOnly';
+const personOrContext = Math.round(Math.random());
+// const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 1 ? 'contextOnly' : 'characterOnly';
+const Condition_type = personOrContext === 0 ? 'baseline' : 'contextOnly';
 
 // // For Project_version = 'control' or 'retest', don't need to set any parameter.
 
