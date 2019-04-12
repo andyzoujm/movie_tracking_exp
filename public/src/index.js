@@ -30,7 +30,7 @@ const Experiment_type = sceneOrPerson === 0 ? 'baselineContinuous' : sceneOrPers
 // const personOrContext = Math.floor(Math.random()*3);
 const personOrContext = Math.round(Math.random());
 // const Condition_type = personOrContext === 0 ? 'baseline' : personOrContext === 1 ? 'contextOnly' : 'characterOnly';
-const Condition_type = personOrContext === 0 ? 'baseline' : 'contextOnly';
+const Condition_type = personOrContext === 0 ? 'baseline' : 'characterOnly';
 
 // // For Project_version = 'control' or 'retest', don't need to set any parameter.
 
