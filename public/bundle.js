@@ -19771,7 +19771,7 @@ const playlist = app.service('/playlist');
 const db = app.service('/mongo');
 
 // 0 is scene rating project; 1 is emotion category project
-const Project_version = 'category';  // scene or category or control
+const Project_version = 'scene';  // scene or category or control
 
 // For Project_version = 'continuous', use sceneOrPerson and Experiment_type
 // baselineContinuous (sceneOrPerson = 0); contextOnlyContinuous(sceneOrPerson = 1); characterOnlyContinuous(sceneOrPerson =2)
